@@ -1,0 +1,26 @@
+.checkbox-lg .form-check-input{
+    top: .8rem;
+    scale: 1.0;
+    margin-right: 0.7rem;
+    margin-left: 0.7rem;
+    }
+   
+   .checkbox-lg .form-check-label {
+    padding-top: 8px;
+  
+   
+    }
+   
+   .checkbox-xl .form-check-input {
+    top: 1.2rem;
+    scale: 1.7;
+    margin-right: 0.8rem;
+    }
+   
+   .checkbox-xl .form-check-label {
+    padding-top: 19px;
+    }
+    md-checkbox[ng-readonly="true"]{
+        z-index: -1;
+    }
+   

@@ -1,0 +1,64 @@
+
+<app-message></app-message>
+<app-spinner [spinnerstatus] ='busystatus'></app-spinner>
+<div class="container">
+   
+    <div class="card">
+    
+        <div class="card-body  border border-primary">
+            <button type="button" class="btn-close" (click)="goBack()" aria-label="Close"></button>
+            <h3 class="card-header">{{title}}</h3>
+
+            <form  #form="ngForm" [formGroup]="feeForm" (ngSubmit)="submit(form)">
+
+                <div class="row">
+
+                    <div class="col-md-4 col-sm-4 col-lg-2 p-2 bd-highlight">
+                        <label>Application Number</label>
+                        <input appBlockCopyPasteDirective type="text" class="form-control" formControlName="applicationno" [ngClass]="{ 'is-invalid': submitted && f['applicationno'].errors}" [readonly] = "show" placeholder="Application Number"
+                            width="20%">
+                            <div *ngIf="submitted && f['applicationno']['errors']" class="invalid-feedback">
+                                <div *ngIf="f['applicationno']['errors']['required']">Application number is required </div>
+
+                                <div *ngIf=" f['applicationno']['errors']['minlength'] && feetype=='newadm'">
+                                     Format of your app no:AABBBBBBYY where  AA =program code, BBBBBB= 6 digit applicationno,YY=Year ,eg. BE12345622</div>
+                                     
+                                     <div *ngIf=" f['applicationno']['errors']['minlength'] && feetype=='appfee'">
+                                        6 digit Application number is required </div>
+                             
+                            </div>
+                    </div>
+                    <div *ngIf="!show" class="text-right col-md-4 col-sm-2 col-lg-1 p-2 m-3 bd-highlight">
+                        <button type="submit" class="btn btn-primary m-2 btn-block "  >OK</button>
+                        
+                    </div>
+
+                    <div *ngIf="show" class="col-md-4 col-sm-4 col-lg-3 p-2 bd-highlight">
+                        <label>Name</label>
+                        <input appBlockCopyPasteDirective type="text" class="form-control " readonly  formControlName="studentname">
+                    </div>
+
+                    <div *ngIf="show" class="col-md col-sm col-lg-2 p-2 bd-highlight" >
+                        <label>Fee Amount</label>
+                        <input appBlockCopyPasteDirective type="text" class="form-control "  readonly formControlName="feeamount">
+                    </div>
+                    
+
+                 
+                   
+                </div>
+                <div class="row"  *ngIf="show">
+                    <div class="col-md-4 col-sm-4 col-lg-3 p-2 m-2 bd-highlight">
+                        <button type="button" class="btn btn-primary m-2">Make Payment</button>
+                        <button type="button" class="btn btn-primary m-2" (click)="goBack()">Cancel</button>
+                    </div>
+
+                </div>
+              
+
+            </form>
+        </div>
+    </div>
+</div>
+
+

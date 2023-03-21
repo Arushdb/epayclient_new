@@ -1,0 +1,34 @@
+
+<mat-card>
+    <div class="example-button-row">
+<button mat-raised-button   color="primary" [matMenuTriggerFor]="studentMenu">Student</button>
+<mat-menu #studentMenu="matMenu" yPosition="below">
+  <button   routerLink="/student"    mat-menu-item>Continue Student</button>
+  <button  routerLink="/newadmissionfee" mat-menu-item>New Admission</button>
+  
+  <button   routerLink="/applicationfee" mat-menu-item>Application Fee</button>
+  <button   routerLink="/hostelfee" mat-menu-item>Hostel  Fee</button>
+  
+
+  <button  [matMenuTriggerFor]="certMenu" mat-menu-item >Certificate</button>
+    
+</mat-menu>
+
+<mat-menu #certMenu="matMenu" yPosition="above">
+  <button  routerLink="/migcertificate"  mat-menu-item>Migration Certificate</button>
+  <button  routerLink="/degcertificate"  mat-menu-item>Duplicate Degree/Diploma</button>
+  <button  routerLink="/trncertificate"  mat-menu-item>Official Transcript</button>
+  <button  routerLink="/procertificate"  mat-menu-item>Provisional Certificate</button>
+  <button  routerLink="/rescertificate"  mat-menu-item>Duplicate Result Card</button>
+
+</mat-menu>
+
+
+<button  mat-raised-button btn-lg color="primary" [matMenuTriggerFor]="miscMenu">Miscellaneous</button>
+<mat-menu #miscMenu="matMenu" xPosition="after">
+
+  <button   routerLink="/postfee" mat-menu-item>Post Fee</button>
+ 
+</mat-menu>
+</div>
+</mat-card>

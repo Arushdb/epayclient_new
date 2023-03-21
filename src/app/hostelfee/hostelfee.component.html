@@ -1,0 +1,135 @@
+<app-message></app-message>
+<app-spinner [spinnerstatus]='busystatus'></app-spinner>
+<div class="container">
+
+  <div class="card">
+
+    <div class="card-body  border border-primary">
+      <button type="button" class="btn-close" (click)="goBack()" aria-label="Close"></button>
+      <h3 class="card-header">{{title}}</h3>
+
+      <form #form="ngForm" [formGroup]="feeForm" (ngSubmit)="submit(form)">
+
+        <div class="row">
+          <div class="form-check checkbox-lg col-md-2 col-lg-2  p-2 m-4 bd-highlight">
+
+
+            <input appBlockCopyPasteDirective name="mode" class="form-check-input" formControlName="mode" value="byapplno" type="radio"
+              [ngClass]="{ 'is-invalid': submitted && f['mode']['errors']}" (change)="onmodechanged($event)">
+            <label class="form-check-label">
+              By Application Number
+            </label>
+            <div *ngIf="submitted && f['mode']['errors']" class="invalid-feedback">
+              <div *ngIf="f['mode']['errors']">Selection is required
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="form-check checkbox-lg col-md-2 col-lg-2 p-2 mt-4 bd-highlight">
+
+            <input appBlockCopyPasteDirective name="mode" class="form-check-input" formControlName="mode" (change)="onmodechanged($event)"
+              value="byrollno" type="radio" [ngClass]="{ 'is-invalid': submitted && f['mode']['errors']}">
+            <label class="form-check-label">
+              By Roll Number
+            </label>
+            <div *ngIf="submitted && f['mode']['errors']" class="invalid-feedback">
+              <div *ngIf="f['mode']['errors']">Selection is required
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="showhostel" class="form-check col-md-4 col-sm-4 col-lg-2 p-2 bd-highlight">
+            <label>Fee (month and year):</label>
+            <input appBlockCopyPasteDirective [ngClass]="{ 'is-invalid': submitted && f['yearmonth']['errors']}" class="form-control"
+              formControlName="yearmonth" type="month">
+            <div *ngIf="submitted && f['yearmonth']['errors']" class="invalid-feedback">
+              <div *ngIf="f['yearmonth']['errors']">Month and Year is required</div>
+            </div>
+
+          </div>
+          <div *ngIf="showhostel" class="col-md-4 col-sm-4 col-lg-2 p-2 bd-highlight">
+            <label>Hostel</label>
+            <select [ngClass]="{ 'is-invalid': submitted && f['hostelid']['errors']}" formControlName="hostelid"
+              [disabled]="show" class="form-control">
+
+              <option value="1" [disabled]="show">Girls npHostel -1(Jublee Gate)</option>
+              <option value="2" [disabled]="show">Girls Hostel -2(Anupam Bagh)</option>
+              <option value="3" [disabled]="show">Girls Hostel -3(Purshotam Bagh)</option>
+              <option value="4" [disabled]="show">Junior Boys Hostel</option>
+              <option value="5" [disabled]="show">Senior Boys Hostel</option>
+
+            </select>
+            <div *ngIf="submitted && f['hostelid']['errors']" class="invalid-feedback">
+              <div *ngIf="f['hostelid']['errors']">Please select hostel</div>
+            </div>
+
+          </div>
+
+          <div *ngIf="showappno" class="col-md-4 col-sm-4 col-lg-2 p-2 bd-highlight">
+            <label>Application Number</label>
+            <input appBlockCopyPasteDirective type="text" class="form-control" formControlName="applicationno"
+             
+              
+              [ngClass]="{ 'is-invalid': submitted && f['applicationno']['errors']}" [readonly]="show"
+              placeholder="Application Number" width="20%">
+            <div *ngIf="submitted && f['applicationno']['errors']" class="invalid-feedback">
+
+              <div *ngIf="f['applicationno']['errors']['required']">Application Number is Required </div>
+
+              <div *ngIf=" f['applicationno']['errors']['minlength'] ">
+                Format of your 10 digit app no:AABBBBBBYY where AA =program code, BBBBBB= 6 digit applicationno,YY=Year
+                ,eg. BE12345622</div>
+              </div>
+
+            </div>
+
+
+            <div *ngIf="showrollno" class="col-md-4 col-sm-4 col-lg-2 p-2 bd-highlight">
+              <label>Roll Number</label>
+              <input appBlockCopyPasteDirective type="text" class="form-control" formControlName="rollno"
+                [ngClass]="{ 'is-invalid': submitted && f['rollno'].errors}" [readonly]="show" placeholder="Roll Number"
+                width="20%">
+              <div *ngIf="submitted && f['rollno']['errors']" class="invalid-feedback">
+                <div *ngIf="f['rollno']['errors']['required']">Roll Number is Required </div>
+                <div *ngIf="f['rollno']['errors']['minlength']">Roll number of minimum length
+                  {{f['rollno']['errors']['minlength']['requiredLength']
+                  }} is required</div>
+              </div>
+            </div>
+
+
+
+            <div *ngIf="!show" class="text-right col-md-4 col-sm-2 col-lg-1 p-2 m-3 bd-highlight">
+              <button type="submit" class="btn btn-primary m-2 btn-block ">OK</button>
+
+            </div>
+
+            <div *ngIf="show" class="col-md-4 col-sm-4 col-lg-3 p-2 bd-highlight">
+              <label>Name</label>
+              <input appBlockCopyPasteDirective type="text" class="form-control " readonly formControlName="studentname">
+            </div>
+
+            <div *ngIf="show" class="col-md col-sm col-lg-2 p-2 bd-highlight">
+              <label>Fee Amount</label>
+              <input appBlockCopyPasteDirective type="text" class="form-control " readonly formControlName="feeamount">
+            </div>
+
+
+
+
+          </div>
+          <div class="row" *ngIf="show">
+            <div class="col-md-4 col-sm-4 col-lg-3 p-2 m-2 bd-highlight">
+              <button type="button" class="btn btn-primary m-2">Make Payment</button>
+              <button type="button" class="btn btn-primary m-2" (click)="goBack()">Cancel</button>
+            </div>
+
+          </div>
+
+
+      </form>
+    </div>
+  </div>
+</div>

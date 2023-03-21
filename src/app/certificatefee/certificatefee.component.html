@@ -1,0 +1,251 @@
+<app-message></app-message>
+<app-spinner [spinnerstatus]="busystatus"></app-spinner>
+<div class="container">
+
+  <div class="card">
+
+    <div class="card-body  border border-primary">
+      <button type="button" class="btn-close" (click)="goBack()" aria-label="Close"></button>
+      <h3 class="card-header">{{title}}</h3>
+
+      <form #form="ngForm" [formGroup]="certForm" (ngSubmit)="submit(form)">
+
+        <div class="row">
+
+
+          <div *ngIf="certificatetype!='trn' && certificatetype!='mig'"
+            class="col-md-4 col-sm-4 col-lg-3 p-2 bd-highlight">
+            <label>{{labelrollno}}</label>
+            <input appBlockCopyPasteDirective type="text" class="form-control" formControlName="rollno" [readonly]="show"
+              [ngClass]="{ 'is-invalid': submitted && f['rollno']['errors']}" placeholder="Roll Number">
+            <div *ngIf="submitted && f['rollno']['errors']" class="invalid-feedback">
+              <div *ngIf="f['rollno']['errors']['required']">Roll number is required </div>
+
+              <div *ngIf="f['rollno']['errors']['minlength']">Minimum Length of {{f['rollno']['errors']['minlength']['requiredLength']}}
+                is required
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-md-4 col-sm-4 col-lg-2 p-2 bd-highlight">
+            <label>Enrolment Number</label>
+            <input appBlockCopyPasteDirective type="text" class="form-control" name="enrolmentno" formControlName='enrolno'
+              [ngClass]="{ 'is-invalid': submitted && f['enrolno']['errors']}" [readonly]="show"
+              placeholder="Enrolment Number">
+            <div *ngIf="submitted && f['enrolno']['errors']" class="invalid-feedback">
+              <div *ngIf="f['enrolno']['errors']['required']">Enrolment number is required </div>
+
+              <div *ngIf="f['enrolno']['errors']['minlength']">Minimum Length of {{f['enrolno']['errors']['minlength']['requiredLength']}}
+                is required
+              </div>
+
+
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 col-lg-2 p-2 bd-highlight">
+            <label for="dob">Date of Birth:</label>
+            <input appBlockCopyPasteDirective class="form-control" [readonly]="show" formControlName="dob" type="date" id="dob" name="dateofbirth"
+              formControlName="dob" [ngClass]="{ 'is-invalid': submitted && f['dob']['errors']}">
+            <div *ngIf="submitted && f['dob']['errors']" class="invalid-feedback">
+              <div *ngIf="f['dob']['errors']">Date of Birth is required
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-8 col-sm-8 col-lg-8 p-2 bd-highlight">
+            <label>{{labeladdress}} </label>
+            <input appBlockCopyPasteDirective type="text" [readonly]="show" class="form-control" formControlName="address"
+              [ngClass]="{ 'is-invalid': submitted && f['address']['errors']}" placeholder="Address">
+            <div *ngIf="submitted && f['address']['errors']" class="invalid-feedback">
+              <div *ngIf="f['address']['errors']">Address is required
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-2 col-lg-2 p-2 bd-highlight">
+            <label>Pincode </label>
+            <input appBlockCopyPasteDirective type="text" class="form-control" formControlName="pincode"
+              [ngClass]="{ 'is-invalid': submitted && f['pincode']['errors']}" [readonly]="show" placeholder="Pincode">
+            <div *ngIf="submitted && f['pincode']['errors']" class="invalid-feedback">
+              <div *ngIf="f['pincode']['errors']['required']">Pincode is required
+              </div>
+              <div *ngIf="f['pincode']['errors']['minlength']">Minimum Length of {{f['pincode']['errors']['minlength']['requiredLength']}}
+                is required
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-2 col-lg-2 p-2 bd-highlight">
+            <label>Phone </label>
+            <input appBlockCopyPasteDirective appBlockCopyPasteDirective type="text" [disabled]="show" class="form-control" formControlName="phone"
+              [ngClass]="{ 'is-invalid': submitted && f['phone']['errors']}" [readonly]="show" placeholder="Phone">
+            <div *ngIf="submitted && f['phone']['errors']" class="invalid-feedback">
+              <div *ngIf="f['phone']['errors']">Phone Number is required
+              </div>
+            </div>
+          </div>
+
+          <div  class="form-check checkbox-lg col-md-2 col-lg-3  p-2 mt-4 bd-highlight">
+
+
+            <input  appBlockCopyPasteDirective name="mode"  class="form-check-input" formControlName="mode" value="bypost"  type="radio"
+              [ngClass]="{ 'is-invalid': submitted && f['mode']['errors']}" >
+            <label  class="form-check-label">
+              By post on my address
+            </label>
+            <div *ngIf="submitted && f['mode']['errors']" class="invalid-feedback">
+              <div *ngIf="f['mode']['errors']">Selection is required
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="form-check checkbox-lg col-md-2 col-lg-3  p-2 mt-4 bd-highlight">
+
+            <input  appBlockCopyPasteDirective name="mode" class="form-check-input" formControlName="mode" value="byhand" type="radio"
+              [ngClass]="{ 'is-invalid': submitted && f['mode']['errors']}" >
+            <label  class="form-check-label">
+              From DEI Exam Counter
+            </label>
+            <div *ngIf="submitted && f['mode']['errors']" class="invalid-feedback">
+              <div *ngIf="f['mode']['errors']">Selection is required
+              </div>
+            </div>
+          </div>
+
+
+          <div *ngIf="certificatetype=='res'" class="col-md-10 col-sm-10 col-lg-12 p-2 bd-highlight">
+            <label>Semester/Module:</label>
+            <div class="form-check form-check-inline">
+              <input appBlockCopyPasteDirective class="form-check-input"  formControlName="sm1" 
+                (change)="onCheckbox1Change($event)" type="checkbox">
+              <label class="form-check-label">1</label>
+            </div>
+            <div appBlockCopyPasteDirective class="form-check form-check-inline">
+              <input class="form-check-input"  formControlName="sm2"
+                (change)="onCheckbox2Change($event)" type="checkbox">
+              <label class="form-check-label">2</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input appBlockCopyPasteDirective class="form-check-input" ng-disabled="show" ng-model formControlName="sm3"
+                (change)="onCheckbox3Change($event)" type="checkbox">
+              <label class="form-check-label">3</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input appBlockCopyPasteDirective class="form-check-input md-checkbox"  ng-model formControlName="sm4"
+                (change)="onCheckbox4Change($event)" type="checkbox">
+              <label class="form-check-label">4</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input appBlockCopyPasteDirective class="form-check-input" ng-disabled="show" ng-model formControlName="sm5"
+                (change)="onCheckbox5Change($event)" type="checkbox">
+              <label class="form-check-label">5</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input appBlockCopyPasteDirective class="form-check-input" ng-disabled="show"  ng-model formControlName="sm6"
+                (change)="onCheckbox6Change($event)" type="checkbox">
+              <label class="form-check-label">6</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input appBlockCopyPasteDirective class="form-check-input" [readonly]="show" formControlName="sm7"
+                (change)="onCheckbox7Change($event)" type="checkbox">
+              <label class="form-check-label">7</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input appBlockCopyPasteDirective class="form-check-input" [readonly]="show" formControlName="sm8"
+                (change)="onCheckbox8Change($event)" type="checkbox">
+              <label class="form-check-label">8</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input appBlockCopyPasteDirective class="form-check-input" [readonly]="show" formControlName="sm9"
+                (change)="onCheckbox9Change($event)" type="checkbox">
+              <label class="form-check-label">9</label>
+            </div>
+
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" [readonly]="show" formControlName="sm10"
+                (change)="onCheckbox10Change($event)" type="checkbox">
+              <label class="form-check-label">10</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input appBlockCopyPasteDirective class="form-check-input" [readonly]="show" formControlName="sm11"
+                (change)="onCheckbox11Change($event)" type="checkbox">
+              <label class="form-check-label">11</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input appBlockCopyPasteDirective class="form-check-input" [readonly]="show" formControlName="sm12"
+                (change)="onCheckbox12Change($event)" type="checkbox">
+              <label class="form-check-label">12</label>
+            </div>
+
+          </div>
+
+          <div *ngIf="!show" class="text-right col-md-4 col-sm-2 col-lg-1 p-2 m-3 bd-highlight">
+            <button type="submit" class="btn btn-primary m-2 btn-block ">OK</button>
+
+          </div>
+          <div class="row">
+            <div *ngIf="certificatetype=='deg'" class="col-md-8 col-sm-8 col-lg-8 p-2 bd-highlight">
+              <ul class="list-group">
+                <li class="list-group-item text-info" aria-current="true"><h4>Documents required for obtaining duplicate degree.</h4></li>
+                <li class="list-group-item"> 1. Affidavit (for issue of Duplicate Degree) <a href="assets/Affidavit_Duplicate Degree.pdf" target="_blank" rel="noreferrer noopener">Download here</a></li>
+                <li class="list-group-item">2. Indemnity Bond (for issue of Duplicate Degree) <a href="assets/Bond_duplicate_degree.pdf" target="_blank" rel="noreferrer noopener" >Download here</a></li>
+                <li class="list-group-item"> 3. Copy of Advertisement in one news-paper mentioning loss of the certificate</li>
+                <li class="list-group-item">4. Copy of F.I.R. lodged in the Police Station in respect of loss of the certificate.</li>
+                <li class="list-group-item">All of the above documents in original to be presented to Examination Department by hand/post, along with payment receipt.</li>
+              </ul>
+
+            </div>
+
+            <div *ngIf="certificatetype=='mig'" class="col-md-8 col-sm-8 col-lg-8 p-2 bd-highlight">
+              <ul class="list-group">
+                <li class="list-group-item text-info" aria-current="true"><h4>Documents required for obtaining duplicate migration certificate.</h4></li>
+                <li class="list-group-item"> 1. Affidavit (for issue of Duplicate Migration Certificate) </li>
+                <li class="list-group-item"> 2. Indemnity Bond (for issue of Duplicate Migration Certificate)</li>
+                <li class="list-group-item"> <a href="assets/migration.PDF" target="_blank" rel="noreferrer noopener" >Download documents here</a></li>
+               
+                <li class="list-group-item">All of the above documents in original to be presented to Examination Department by hand/post, along with payment receipt.</li>
+              </ul>
+
+            </div>
+          </div>
+
+          <div *ngIf="show" class="col-md-4 col-sm-4 col-lg-3 p-2 bd-highlight">
+            <label>Name</label>
+            <input appBlockCopyPasteDirective type="text" class="form-control " readonly formControlName="studentname">
+          </div>
+          <div *ngIf="show" class="col-md-4 col-sm-4 col-lg-4 p-2 bd-highlight">
+            <label>Program</label>
+            <input appBlockCopyPasteDirective type="text" class="form-control readonly" readonly formControlName="programname">
+          </div>
+
+          <div *ngIf="show" class="col-md col-sm col-lg-2 p-2 bd-highlight">
+            <label>Fee Amount</label>
+            <input appBlockCopyPasteDirective type="text" class="form-control " readonly formControlName="feeamount">
+          </div>
+
+
+
+
+
+
+          <div class="row">
+
+
+          </div>
+
+        </div>
+        <div class="row" *ngIf="show">
+          <div class="col-md-4 col-sm-4 col-lg-3 p-2 m-2 bd-highlight">
+            <button type="button" class="btn btn-primary m-2">Make Payment</button>
+            <button type="button" class="btn btn-primary m-2" (click)="goBack()">Cancel</button>
+            
+          </div>
+
+        </div>
+
+
+      </form>
+    </div>
+  </div>
+</div>
