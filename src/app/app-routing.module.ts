@@ -22,7 +22,8 @@ const routes: Routes = [
     {path:'procertificate',component:CertificatefeeComponent,data:{certificatetype:"pro"}},
     {path:'rescertificate',component:CertificatefeeComponent,data:{certificatetype:"res"}},
     {path:'hostelfee',component:HostelfeeComponent},
-    {path:'postfee',component:PostfeeComponent}
+    {path:'postfee',component:PostfeeComponent},
+    {path:'**',component:MainComponent}
 
    
     

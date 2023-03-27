@@ -86,7 +86,7 @@ export class HostelfeeComponent implements OnInit {
   }
 
   onmodechanged(evt: { target: any; }){
-    
+  
     this.showhostel =true;
     var target = evt.target;
     if (target.defaultValue=='byapplno'){
@@ -103,6 +103,7 @@ export class HostelfeeComponent implements OnInit {
    
 
     }
+ 
 
   submit(form: any) {
     
@@ -124,15 +125,16 @@ export class HostelfeeComponent implements OnInit {
 
     this.subs.add=this.studentservice.gethostelfee(myfeeform).subscribe (
       { next:(res:any)=>{this.show = true;
+        this.f['mode'].disable();
+        this.f['yearmonth'].disable();
     
        this.f['feeamount'].setValue(res[0].amount);
        this.f['studentname'].setValue(res[0]['studentname']);
-      
+       this.studentservice.clear();
        this.busystatus=false;
        return;}
        ,error: (err) =>{this.busystatus=false;
-       
-        
+              
          this.busystatus=false;
             this.studentservice.log(err.error.message);
             this.feeForm.reset();
@@ -142,23 +144,7 @@ export class HostelfeeComponent implements OnInit {
     
     
     
-    ///
-
    
-      // this.subs.add = this.studentservice.gethostelfee(myfeeform).subscribe(res => {
-      //   this.show = true;
-
-      //   this.f['feeamount'].setValue(res[0].amount);
-      //   this.f['studentname'].setValue(res[0]['studentname']);
-      //   this.busystatus=false;
-
-      // }, err => {
-      //   console.log(err);
-      //   this.busystatus=false;
-      //   this.studentservice.log(err.error.message);
-      //   this.feeForm.reset();
-      // });
-    
 
 
   

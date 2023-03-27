@@ -102,6 +102,7 @@ this.subs.add=this.studentservice.getpostfee(myfeeform).subscribe (
    this.f['studentname'].setValue(res[0]['studentname']);
   
    this.busystatus=false;
+   this.studentservice.clear();
    return;}
    ,error: (err) =>{this.busystatus=false;
    
@@ -112,28 +113,6 @@ this.subs.add=this.studentservice.getpostfee(myfeeform).subscribe (
 
      return;}});
 
-
-
-
-///
-   
-      // this.subs.add = this.studentservice.getpostfee(myfeeform).subscribe(res => {
-      //   this.show = true;
-
-      //   this.f['feeamount'].setValue(res[0].appfee);
-      //   this.f['studentname'].setValue(res[0]['studentname']);
-      //   this.busystatus=false;
-
-      // }, err => {
-      //   console.log(err);
-      //   this.busystatus=false;
-      //   this.studentservice.log(err.error.message);
-      //   this.feeForm.reset();
-      // });
-    
-
-
-  
 
 
   }

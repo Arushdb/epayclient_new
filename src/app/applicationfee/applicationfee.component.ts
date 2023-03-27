@@ -89,7 +89,7 @@ export class ApplicationfeeComponent implements OnInit {
   }
 
   submit(form: any) {
-    debugger;
+    
     
     this.f['applicationno'].setValue(String(this.f['applicationno'].value).toUpperCase());
     //this.show=true;
@@ -104,12 +104,13 @@ export class ApplicationfeeComponent implements OnInit {
       debugger;
 
      // this.subs.add = this.studentservice.getApplicantDetail(myfeeform).subscribe((res:Object) => {
-     this.subs.add=this.studentservice.getAdmissionDetail(myfeeform).subscribe (
+     this.subs.add=this.studentservice.getApplicantDetail(myfeeform).subscribe (
      { next:(res:any)=>{this.show = true;
 
       this.f['feeamount'].setValue(res[0].appfee);
       this.f['studentname'].setValue(res[0]['studentname']);
       this.busystatus=false;
+      this.studentservice.clear();
       return;}
       ,error: (err) =>{this.busystatus=false;
         this.studentservice.log(err.error.message);
@@ -117,23 +118,7 @@ export class ApplicationfeeComponent implements OnInit {
         return;}});
      
      
-    //  this.subs.add = this.studentservice.getApplicantDetail(myfeeform).subscribe((res:any) => {
-    //     this.show = true;
-
-    //     this.f['feeamount'].setValue(res[0].appfee);
-    //     this.f['studentname'].setValue(res[0]['studentname']);
-    //     this.busystatus=false;
-    //     return;
-
-    //   }, (err:any) => {
-    //     debugger;
-    //     console.log(err);
-    //     this.busystatus=false;
-    //     this.studentservice.log(err.error.message);
-    //     this.feeForm.reset();
-    //     return;
-    //   });
-    }
+       }
 
 
     if (this.feetype == 'newadm') {
@@ -144,6 +129,7 @@ export class ApplicationfeeComponent implements OnInit {
          this.f['feeamount'].setValue(res[0].appfee);
          this.f['studentname'].setValue(res[0]['studentname']);
          this.busystatus=false;
+         this.studentservice.clear();
          return;}
          ,error: (err) =>{this.busystatus=false;
            this.studentservice.log(err.error.message);
@@ -153,22 +139,7 @@ export class ApplicationfeeComponent implements OnInit {
 
 
 
-      // this.subs.add = this.studentservice.getAdmissionDetail(myfeeform).subscribe(res => {
-      //   this.show = true;
-      //   this.busystatus=false;
-      //   this.f['feeamount'].setValue(res[0].amount);
-      //   this.f['studentname'].setValue(res[0]['studentname']);
-      //   return;
-
-      // }, err => {
-      //   console.log(err);
-      //   debugger;
-      //   this.busystatus=false;
-      //   this.studentservice.log(err.error.message);
-      //   this.feeForm.reset();
-      //   return;
-     
-      // });
+      
     }
 
 

@@ -56,9 +56,7 @@ export class StudentfeeComponent implements OnInit {
     this.submitted = false;
     
 
-   console.log("before",this.feeForm);
-   
-debugger
+
 
     this.feeForm = this.formBuilder.group({
   
@@ -112,7 +110,7 @@ this.subs.add=this.studentservice.getStudentDetail(myfeeform).subscribe (
 
     //this.feeForm.get('feeamount').setValue(res[0].amount);
     this.busystatus=false;
-   this.busystatus=false;
+   this.studentservice.clear();
    return;}
    ,error: (err) =>{this.busystatus=false;
    
@@ -126,32 +124,7 @@ this.subs.add=this.studentservice.getStudentDetail(myfeeform).subscribe (
 
 
 
-///
-    // this.subs.add = this.studentservice.getStudentDetail(myfeeform).subscribe(res => {
-    //   this.show = true;
 
-    //   let totalfee: string;
-    //   totalfee = String(parseFloat(res[0].amount) + parseFloat(res[0]['labfee']) + parseFloat(res[0]['latefee']));
-    //   this.f['feeamount'].setValue(res[0].amount);
-    //   this.f['studentname'].setValue(res[0]['studentname']);
-    //   this.f['latefee'].setValue(res[0]['latefee']);
-    //   this.f['labfee'].setValue(res[0]['labfee']);
-    //   this.f['programname'].setValue(res[0]['programname']);
-    //   this.f['pendingsemester'].setValue(res[0].semestercode);
-
-    //   this.f['totalfee'].setValue(totalfee);
-
-    //   this.feepending = res[0].feepending;
-
-    //   //this.feeForm.get('feeamount').setValue(res[0].amount);
-    //   this.busystatus=false;
-
-    // }, err => {
-    //   console.log(err);
-    //   this.studentservice.log(err.error.message);
-    //   this.feeForm.reset();
-    //   this.busystatus=false;
-    // });
 
 
   }
