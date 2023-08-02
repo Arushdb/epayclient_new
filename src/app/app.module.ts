@@ -15,7 +15,7 @@ import { PostfeeComponent } from './postfee/postfee.component'
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {ResponseInterceptorService} from './services/response-interceptor.service';
 import { BlockCopyPasteDirectiveDirective } from './block-copy-paste-directive.directive';
-import { FeepaymentComponent } from './feepayment/feepayment.component'
+//import { FeepaymentComponent } from './feepayment/feepayment.component'
 
 
 @NgModule({
@@ -29,7 +29,7 @@ import { FeepaymentComponent } from './feepayment/feepayment.component'
     HostelfeeComponent,
     PostfeeComponent,
     BlockCopyPasteDirectiveDirective,
-    FeepaymentComponent
+    
   ],
   imports: [
     BrowserModule,
