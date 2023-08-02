@@ -29,6 +29,7 @@ export class PostfeeComponent implements OnInit {
   showappno!: boolean;
   showrollno!: boolean;
   showhostel!: boolean;
+  category: any;
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
@@ -64,6 +65,12 @@ export class PostfeeComponent implements OnInit {
    
  
     this.submitted = false;
+    this.subs.add = this._Activatedroute.data.subscribe(data => {
+
+     
+      this.category=data['cat'];
+    });
+
      
 
     this.feeForm = this.formBuilder.group({
@@ -82,7 +89,7 @@ export class PostfeeComponent implements OnInit {
 
   submit(form: any) {
     
-    debugger;
+  
     
     this.f['applicationno'].setValue(String(this.f['applicationno'].value).toUpperCase());
     //this.show=true;

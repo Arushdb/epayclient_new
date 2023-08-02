@@ -30,6 +30,7 @@ export class CertificatefeeComponent implements OnInit {
   busystatus: boolean = false;
   title: string | undefined;
   certificatetype: any;
+  category :string="";
 
 
   constructor(
@@ -49,7 +50,7 @@ export class CertificatefeeComponent implements OnInit {
   }
 
   onCheckboxChange(event: any) {
-    debugger;
+ 
     if (event.target.checked) {
       this.f['bypost'].setValue("Y");
     } else {
@@ -73,6 +74,7 @@ export class CertificatefeeComponent implements OnInit {
     this.subs.add = this._Activatedroute.data.subscribe(data => {
 
       this.certificatetype = data['certificatetype'];
+      this.category=data['cat'];
     });
 
     this.certForm = this.formBuilder.group({

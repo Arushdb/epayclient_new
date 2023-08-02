@@ -26,6 +26,7 @@ export class HostelfeeComponent implements OnInit {
   showappno!: boolean;
   showrollno!: boolean;
   showhostel!: boolean;
+  category: any;
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
@@ -63,7 +64,8 @@ export class HostelfeeComponent implements OnInit {
     this.submitted = false;
     this.subs.add = this._Activatedroute.data.subscribe(data => {
     
-      this.feetype = data['feetype']
+      this.feetype = data['feetype'];
+      this.category=data['cat'];
     });
 
   

@@ -12,17 +12,17 @@ const routes: Routes = [
     //basic routes
     {path:'',redirectTo:'main',pathMatch:'full'},
     {path:'main',component:MainComponent},
-    {path:'student',component:StudentfeeComponent},
+    {path:'student',component:StudentfeeComponent,data:{cat:"CON"}},
   
-    {path:'applicationfee',component:ApplicationfeeComponent,data:{feetype:"appfee"}},
-    {path:'newadmissionfee',component:ApplicationfeeComponent,data:{feetype:"newadm"}},
-    {path:'migcertificate',component:CertificatefeeComponent,data:{certificatetype:"mig"}},
-    {path:'degcertificate',component:CertificatefeeComponent,data:{certificatetype:"deg"}},
-    {path:'trncertificate',component:CertificatefeeComponent,data:{certificatetype:"trn"}},
-    {path:'procertificate',component:CertificatefeeComponent,data:{certificatetype:"pro"}},
-    {path:'rescertificate',component:CertificatefeeComponent,data:{certificatetype:"res"}},
-    {path:'hostelfee',component:HostelfeeComponent},
-    {path:'postfee',component:PostfeeComponent},
+    {path:'applicationfee',component:ApplicationfeeComponent,data:{feetype:"appfee",cat:"APP"}},
+    {path:'newadmissionfee',component:ApplicationfeeComponent,data:{feetype:"newadm",cat:"NEW"}},
+    {path:'migcertificate',component:CertificatefeeComponent,data:{certificatetype:"mig",cat:"CER"}},
+    {path:'degcertificate',component:CertificatefeeComponent,data:{certificatetype:"deg",cat:"CER"}},
+    {path:'trncertificate',component:CertificatefeeComponent,data:{certificatetype:"trn",cat:"CER"}},
+    {path:'procertificate',component:CertificatefeeComponent,data:{certificatetype:"pro",cat:"CER"}},
+    {path:'rescertificate',component:CertificatefeeComponent,data:{certificatetype:"res",cat:"CER"}},
+    {path:'hostelfee',component:HostelfeeComponent ,data:{cat:"HOS"}},
+    {path:'postfee',component:PostfeeComponent,data:{cat:"POS"}},
     {path:'**',component:MainComponent}
 
    

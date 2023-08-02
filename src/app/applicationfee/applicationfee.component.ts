@@ -21,6 +21,7 @@ export class ApplicationfeeComponent implements OnInit {
   subs = new SubscriptionContainer();
   busystatus: boolean = false;
   title!: string;
+  category :string="";
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
@@ -56,6 +57,7 @@ export class ApplicationfeeComponent implements OnInit {
     this.subs.add = this._Activatedroute.data.subscribe(data => {
     
       this.feetype = data['feetype'];
+      this.category=data['cat'];
     });
 
 
@@ -101,7 +103,7 @@ export class ApplicationfeeComponent implements OnInit {
     this.busystatus=true;
     if (this.feetype == 'appfee') {
 
-      debugger;
+     
 
      // this.subs.add = this.studentservice.getApplicantDetail(myfeeform).subscribe((res:Object) => {
      this.subs.add=this.studentservice.getApplicantDetail(myfeeform).subscribe (

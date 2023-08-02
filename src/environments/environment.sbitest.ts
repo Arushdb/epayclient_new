@@ -6,9 +6,8 @@
 
 export const environment = {
   production: false,
-  url:"http://localhost:8080/epay",
- 
-  
+  url:"https://admission.dei.ac.in/epay",
+   
 };
 
 /*

@@ -98,13 +98,19 @@
 
                     <div class="row" *ngIf="show">
                         <div class="col-md-4 col-sm-4 col-lg-3 p-2 m-2 bd-highlight">
-                            <button type="button" class="btn btn-primary m-2">Make Payment</button>
+                            <a href={{myurl}}  class="btn btn-primary btn-sm" role="button" aria-disabled="true">Make Payment</a>
+                            
+                            
+                        
                             <button type="button" class="btn btn-primary m-2" (click)="goBack()">Cancel</button>
                         </div>
 
                     </div>
 
             </form>
+
+         
+
         </div>
     </div>
 </div>
