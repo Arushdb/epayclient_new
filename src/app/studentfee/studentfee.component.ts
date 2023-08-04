@@ -146,13 +146,13 @@ this.subs.add=this.studentservice.getStudentDetail(myfeeform).subscribe (
 debugger;
     this.feepending = res[0].feepending;
 
-    otherdetail=(this.category +'-'+this.f['rollnumber'].value+'-'+res[0]['studentname']+
-    '-'+res[0]['programname']+'-'+"R" +'-'+this.f['semesterstartdate'].value
-    +'-'+this.f['semesterenddate'].value  +'-'+this.f['latefee'].value
-    +'-'+this.f['entityid'].value
-    +'-'+this.f['programid'].value
-    +'-'+this.f['pendingsemester'].value
-    +'-'+this.f['feepending'].value
+    otherdetail=(this.category +','+this.f['rollnumber'].value+','+res[0]['studentname']+
+    ','+res[0]['programname']+','+"R" +','+this.f['semesterstartdate'].value
+    +','+this.f['semesterenddate'].value  +','+this.f['latefee'].value
+    +','+this.f['entityid'].value
+    +','+this.f['programid'].value
+    +','+this.f['pendingsemester'].value
+    +','+this.f['feepending'].value
   
     );
 
