@@ -5,6 +5,7 @@ import { MyItem } from '../interfaces/my-item';
 import { StudentService } from '../services/student.service';
 import { SubscriptionContainer } from 'src/app/shared/subscription-container';
 import { Location } from '@angular/common';
+import {OtherDetail} from '../other-detail' ;
 
 
 @Component({
@@ -19,6 +20,8 @@ export class StudentfeeComponent implements OnInit {
   myurl = this.studentservice.url;
  
   feepending!: string;
+  rectype:string="";
+  
   
 
  
@@ -68,6 +71,7 @@ export class StudentfeeComponent implements OnInit {
     this.subs.add = this._Activatedroute.data.subscribe(data => {
 
       
+      
       this.category=data['cat'];
     });
 
@@ -96,7 +100,8 @@ export class StudentfeeComponent implements OnInit {
       semesterenddate:[''],
       entityid:[''],
       programid:[''],
-      feepending:['']
+      feepending:[''],
+      feetype:['']
 
 
 
@@ -123,7 +128,7 @@ this.subs.add=this.studentservice.getStudentDetail(myfeeform).subscribe (
     this.show = true;
 
     let totalfee: string="";
-    let otherdetail:string="";
+    
     totalfee = String(parseFloat(res[0].amount) + parseFloat(res[0]['labfee']) + parseFloat(res[0]['latefee']));
     this.f['feeamount'].setValue(res[0].amount);
    
@@ -141,24 +146,43 @@ this.subs.add=this.studentservice.getStudentDetail(myfeeform).subscribe (
     this.f['feepending'].setValue(res[0].feepending);
 
     this.f['totalfee'].setValue(totalfee);
+    this.f['feetype'].setValue(res[0].feetype);
   
 
 debugger;
     this.feepending = res[0].feepending;
 
-    otherdetail=(this.category +','+this.f['rollnumber'].value+','+res[0]['studentname']+
-    ','+res[0]['programname']+','+"R" +','+this.f['semesterstartdate'].value
-    +','+this.f['semesterenddate'].value  +','+this.f['latefee'].value
-    +','+this.f['entityid'].value
-    +','+this.f['programid'].value
-    +','+this.f['pendingsemester'].value
-    +','+this.f['feepending'].value
+    // otherdetail=(this.category +','+this.f['rollnumber'].value+','+res[0]['studentname']+
+    // ','+res[0]['programname']+','+"R" +','+this.f['semesterstartdate'].value
+    // +','+this.f['semesterenddate'].value  +','+this.f['latefee'].value
+    // +','+this.f['entityid'].value
+    // +','+this.f['programid'].value
+    // +','+this.f['pendingsemester'].value
+    // +','+this.f['feepending'].value
+    // +','+this.f['feetype'].value
   
-    );
+    //);
+    this.rectype="R";
+    const otherdet = new OtherDetail() ;
+    otherdet.category=this.category;
+    otherdet.rollnumber=this.f['rollnumber'].value;
+    otherdet.studentname=this.f['studentname'].value;
+    otherdet.programname=this.f['programname'].value;
+    otherdet.rectype=this.rectype;
+    otherdet.semesterstartdate=this.f['semesterstartdate'].value;
+    otherdet.semesterenddate=this.f['semesterenddate'].value;
+    otherdet.latefee=this.f['latefee'].value;
+    otherdet.entityid=this.f['entityid'].value;
+    otherdet.programid=this.f['programid'].value;
+    otherdet.semester=this.f['pendingsemester'].value;
+    otherdet.feepending=this.f['feepending'].value;
+    otherdet.feetype=this.f['feetype'].value;
+   
 
-    this.myurl=this.myurl+"?"+"totalfee="+totalfee+"&"+"Otherdetail="+otherdetail ;
-    
-debugger;
+   // this.router.navigate([this.myurl,{ totalfee: btoa(totalfee),Otherdetail: otherdetail},]);
+   // this.myurl=this.myurl+"?"+"totalfee="+totalfee+"&"+"Otherdetail="+otherdetail ;
+    this.myurl=this.myurl+"?"+"totalfee="+totalfee+"&"+"Otherdetail="+otherdet.otherdetailforcontinue() ;
+     
 
     //this.feeForm.get('feeamount').setValue(res[0].amount);
 

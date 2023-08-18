@@ -6,6 +6,7 @@ import { SubscriptionContainer } from '../shared/subscription-container';
 import { Location, UpperCasePipe } from '@angular/common';
 import { AgRadioButton } from 'ag-grid-community';
 import { MessageService } from '../services/message.service';
+import { OtherDetail } from '../other-detail';
 
 @Component({
   selector: 'app-certificatefee',
@@ -31,6 +32,12 @@ export class CertificatefeeComponent implements OnInit {
   title: string | undefined;
   certificatetype: any;
   category :string="";
+  otherdetail: string="";
+ // myurl: string="";
+  rectype: any;
+  //otherdetail: string;
+  //myurl: string;
+  myurl = this.studentservice.url;
 
 
   constructor(
@@ -75,6 +82,7 @@ export class CertificatefeeComponent implements OnInit {
 
       this.certificatetype = data['certificatetype'];
       this.category=data['cat'];
+      this.myurl = this.studentservice.url+'/makepayment';
     });
 
     this.certForm = this.formBuilder.group({
@@ -88,6 +96,11 @@ export class CertificatefeeComponent implements OnInit {
       dob: ['', Validators.required],
       phone: ['', [Validators.required, Validators.minLength(10)]],
       feeamount: [''],
+      programid: [''],
+      semestercode: [''],
+      certificatetype: [''],
+      entityid: [''],
+      feetype: [''],
       mode: ['', Validators.required],
       type: ['', Validators.required],
 
@@ -109,8 +122,7 @@ export class CertificatefeeComponent implements OnInit {
     });
 
     this.f['pincode'].setValidators([Validators.minLength(6), Validators.required]);
-    this.f['pincode'].setValidators([Validators.minLength(6), Validators.required]);
-    this.f['mode'].setValidators([Validators.required]);
+       this.f['mode'].setValidators([Validators.required]);
 
 
     if (this.certificatetype == 'mig') {
@@ -152,6 +164,7 @@ export class CertificatefeeComponent implements OnInit {
 
   submit(form: any) {
     this.messageservice.clear();
+    
     this.submitted = true;
     this.f['rollno'].setValue(String(this.f['rollno'].value).toUpperCase());
     this.f['type'].setValue(this.certificatetype);
@@ -181,10 +194,12 @@ export class CertificatefeeComponent implements OnInit {
     ////
 
     this.subs.add = this.studentservice.getcertificate(myfeeform).subscribe(
+     
       {
+     
         next: (res: any) => {
           this.show = true;
-
+          console.log("certificate response",res);
           this.f['feeamount'].setValue(res[0].amount);
           this.f['studentname'].setValue(res[0]['studentname']);
           this.f['programname'].setValue(res[0]['programname']);
@@ -193,6 +208,52 @@ export class CertificatefeeComponent implements OnInit {
           this.disablebuttons();
 
           this.messageservice.clear();
+         
+          this.busystatus=false;
+          this.studentservice.clear();
+    
+          this.f['feeamount'].setValue(res[0].amount);
+          this.f['studentname'].setValue(res[0]['studentname']);
+                
+          this.f['programid'].setValue(res[0]['programid']);
+          this.f['semestercode'].setValue(res[0]['semestercode']);
+          this.f['feetype'].setValue(res[0]['feetype']);
+         // this.f['semesterstartdate'].setValue(res[0]['semesterstartdate']);
+         // this.f['semesterenddate'].setValue(res[0]['semesterenddate']);
+          this.f['certificatetype'].setValue(this.certificatetype);
+          this.f['entityid'].setValue(res[0]['entityid']);
+    
+          debugger;
+    
+          // this.otherdetail=(this.category +','+this.f['applicationnumber'].value+','+res[0]['studentname']+
+          // ','+this.f['programid'].value+','+"A" +','+this.f['semesterstartdate'].value
+          // +','+this.f['semesterenddate'].value  +','+res[0]['latefee']
+          // +','+this.f['entityid'].value
+          // +','+this.f['programid'].value
+          // +','+this.f['semestercode'].value
+          // +','+"N"
+          // +','+this.f['feetype'].value ) ; 
+         
+          this.rectype="E";
+          const otherdet = new OtherDetail() ;
+          otherdet.category=this.category;
+          otherdet.enrolno=this.f['enrolno'].value ;
+          otherdet.rollnumber=this.f['rollno'].value;
+          otherdet.studentname=this.f['studentname'].value;
+          otherdet.programname=this.f['programname'].value;
+          otherdet.rectype=this.rectype;
+          otherdet.address=this.f['address'].value;
+          otherdet.pincode=this.f['pincode'].value;
+          otherdet.phone=this.f['phone'].value;
+          otherdet.semester=this.f['semestercode'].value;
+          otherdet.mode=this.f['mode'].value;
+          otherdet.semester=this.f['semestercode'].value;
+          otherdet.certificatetype=this.f['certificatetype'].value;
+          otherdet.programid=this.f['programid'].value;
+             
+    
+          this.myurl=this.myurl+"?"+"totalfee="+this.f['feeamount'].value+"&"+"Otherdetail="+otherdet.otherdetailforcertificate() ;
+          
           return;
         }
         , error: (err) => {

@@ -20,10 +20,10 @@
                             <div *ngIf="submitted && f['applicationno']['errors']" class="invalid-feedback">
                                 <div *ngIf="f['applicationno']['errors']['required']">Application number is required </div>
 
-                                <div *ngIf=" f['applicationno']['errors']['minlength'] && feetype=='newadm'">
-                                     Format of your app no:AABBBBBBYY where  AA =program code, BBBBBB= 6 digit applicationno,YY=Year ,eg. BE12345622</div>
+                                <div *ngIf=" f['applicationno']['errors']['minlength'] && category=='newadm'">
+                                     Minimum 10 digits Application Number is required</div>
                                      
-                                     <div *ngIf=" f['applicationno']['errors']['minlength'] && feetype=='appfee'">
+                                     <div *ngIf=" f['applicationno']['errors']['minlength'] && category=='appfee'">
                                         6 digit Application number is required </div>
                              
                             </div>
@@ -49,7 +49,8 @@
                 </div>
                 <div class="row"  *ngIf="show">
                     <div class="col-md-4 col-sm-4 col-lg-3 p-2 m-2 bd-highlight">
-                        <button type="button" class="btn btn-primary m-2">Make Payment</button>
+                        <a href={{myurl}}  class="btn btn-primary btn-sm" role="button" aria-disabled="true">Make Payment</a>
+                        
                         <button type="button" class="btn btn-primary m-2" (click)="goBack()">Cancel</button>
                     </div>
 

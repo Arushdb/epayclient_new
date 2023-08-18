@@ -16,7 +16,7 @@
           <div *ngIf="certificatetype!='trn' && certificatetype!='mig'"
             class="col-md-4 col-sm-4 col-lg-3 p-2 bd-highlight">
             <label>{{labelrollno}}</label>
-            <input appBlockCopyPasteDirective type="text" class="form-control" formControlName="rollno" [readonly]="show"
+            <input  appAllowNumber appBlockCopyPasteDirective type="text" class="form-control" formControlName="rollno" [readonly]="show"
               [ngClass]="{ 'is-invalid': submitted && f['rollno']['errors']}" placeholder="Roll Number">
             <div *ngIf="submitted && f['rollno']['errors']" class="invalid-feedback">
               <div *ngIf="f['rollno']['errors']['required']">Roll number is required </div>
@@ -30,7 +30,7 @@
 
           <div class="col-md-4 col-sm-4 col-lg-2 p-2 bd-highlight">
             <label>Enrolment Number</label>
-            <input appBlockCopyPasteDirective type="text" class="form-control" name="enrolmentno" formControlName='enrolno'
+            <input appAllowNumber appBlockCopyPasteDirective type="text" class="form-control" name="enrolmentno" formControlName='enrolno'
               [ngClass]="{ 'is-invalid': submitted && f['enrolno']['errors']}" [readonly]="show"
               placeholder="Enrolment Number">
             <div *ngIf="submitted && f['enrolno']['errors']" class="invalid-feedback">
@@ -55,7 +55,7 @@
 
           <div class="col-md-8 col-sm-8 col-lg-8 p-2 bd-highlight">
             <label>{{labeladdress}} </label>
-            <input appBlockCopyPasteDirective type="text" [readonly]="show" class="form-control" formControlName="address"
+            <input appReplace appSpecialCharacter appBlockCopyPasteDirective type="text" [readonly]="show" class="form-control" formControlName="address"
               [ngClass]="{ 'is-invalid': submitted && f['address']['errors']}" placeholder="Address">
             <div *ngIf="submitted && f['address']['errors']" class="invalid-feedback">
               <div *ngIf="f['address']['errors']">Address is required
@@ -64,7 +64,7 @@
           </div>
           <div class="col-md-2 col-sm-2 col-lg-2 p-2 bd-highlight">
             <label>Pincode </label>
-            <input appBlockCopyPasteDirective type="text" class="form-control" formControlName="pincode"
+            <input appAllowNumber appBlockCopyPasteDirective type="text" class="form-control" formControlName="pincode"
               [ngClass]="{ 'is-invalid': submitted && f['pincode']['errors']}" [readonly]="show" placeholder="Pincode">
             <div *ngIf="submitted && f['pincode']['errors']" class="invalid-feedback">
               <div *ngIf="f['pincode']['errors']['required']">Pincode is required
@@ -76,7 +76,7 @@
           </div>
           <div class="col-md-2 col-sm-2 col-lg-2 p-2 bd-highlight">
             <label>Phone </label>
-            <input appBlockCopyPasteDirective appBlockCopyPasteDirective type="text" [disabled]="show" class="form-control" formControlName="phone"
+            <input appAllowNumber appBlockCopyPasteDirective  type="text" [disabled]="show" class="form-control" formControlName="phone"
               [ngClass]="{ 'is-invalid': submitted && f['phone']['errors']}" [readonly]="show" placeholder="Phone">
             <div *ngIf="submitted && f['phone']['errors']" class="invalid-feedback">
               <div *ngIf="f['phone']['errors']">Phone Number is required
@@ -210,7 +210,11 @@
         </div>
         <div class="row" *ngIf="show">
           <div class="col-md-4 col-sm-4 col-lg-3 p-2 m-2 bd-highlight">
+            <!-- 
             <button type="button" class="btn btn-primary m-2">Make Payment</button>
+            -->
+            <a href={{myurl}}  class="btn btn-primary btn-sm" role="button" aria-disabled="true">Make Payment</a>
+                           
             <button type="button" class="btn btn-primary m-2" (click)="goBack()">Cancel</button>
             
           </div>

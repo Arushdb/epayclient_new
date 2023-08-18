@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { StudentService } from '../services/student.service';
 import { SubscriptionContainer } from '../shared/subscription-container';
 import { Location, UpperCasePipe } from '@angular/common';
+import {OtherDetail} from '../other-detail'
 
 @Component({
   selector: 'app-applicationfee',
@@ -12,6 +13,7 @@ import { Location, UpperCasePipe } from '@angular/common';
 })
 export class ApplicationfeeComponent implements OnInit {
 
+  myurl = this.studentservice.url;
   feeForm!: FormGroup;
   
   submitted = false;
@@ -22,6 +24,8 @@ export class ApplicationfeeComponent implements OnInit {
   busystatus: boolean = false;
   title!: string;
   category :string="";
+  rectype: string="";
+  //otherdetail: string="";
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
@@ -56,11 +60,11 @@ export class ApplicationfeeComponent implements OnInit {
     this.submitted = false;
     this.subs.add = this._Activatedroute.data.subscribe(data => {
     
-      this.feetype = data['feetype'];
+    
       this.category=data['cat'];
     });
 
-
+    this.myurl = this.studentservice.url+'/makepayment';
 
 
     
@@ -72,16 +76,27 @@ export class ApplicationfeeComponent implements OnInit {
 
       studentname: [''],
       feeamount: [''],
+      applicationnumber: [''],
+      branchid: [''],
+      programid: [''],
+      semestercode: [''],
+      feetype: [''],
+      semesterenddate: [''],
+      entityid: [''],
+      semesterstartdate: [''],
+      programname: [''],
+      latefee: [''],
+      feepending: [''],
 
     });
 
-    if (this.feetype == 'appfee') {
+    if (this.category == 'appfee') {
       this.title = "Application Fee";
       this.f['applicationno'].setValidators([Validators.required, Validators.minLength(6)])
     }
 
 
-    if (this.feetype == 'newadm') {
+    if (this.category == 'newadm') {
       this.title = "Admission Fee";
       this.f['applicationno'].setValidators([Validators.required, Validators.minLength(10)])
 
@@ -101,7 +116,7 @@ export class ApplicationfeeComponent implements OnInit {
     let myfeeform: any;
     myfeeform = this.feeForm.getRawValue();
     this.busystatus=true;
-    if (this.feetype == 'appfee') {
+    if (this.category== 'appfee') {
 
      
 
@@ -113,6 +128,43 @@ export class ApplicationfeeComponent implements OnInit {
       this.f['studentname'].setValue(res[0]['studentname']);
       this.busystatus=false;
       this.studentservice.clear();
+
+      this.f['feeamount'].setValue(res[0].appfee);
+      this.f['studentname'].setValue(res[0]['studentname']);
+      this.f['applicationnumber'].setValue(res[0]['applicationnumber']);
+      this.f['branchid'].setValue(res[0]['branchid']);
+      this.f['programid'].setValue(res[0]['programid']);
+      this.f['semestercode'].setValue(res[0]['semestercode']);
+      this.f['feetype'].setValue(res[0]['feetype']);
+      this.f['semesterstartdate'].setValue(res[0]['semesterstartdate']);
+      this.f['semesterenddate'].setValue(res[0]['semesterenddate']);
+      this.f['entityid'].setValue(res[0]['entityid']);
+      this.f['feepending'].setValue(res[0]['feepending']);
+      this.f['programname'].setValue(res[0]['programname']);
+
+
+      debugger;
+
+     
+      this.rectype="A";
+      const otherdet = new OtherDetail() ;
+      otherdet.category=this.category;
+      otherdet.rollnumber=this.f['applicationnumber'].value;
+      otherdet.studentname=this.f['studentname'].value;
+      otherdet.programname=this.f['programname'].value;
+      otherdet.rectype=this.rectype;
+      otherdet.semesterstartdate=this.f['semesterstartdate'].value;
+      otherdet.semesterenddate=this.f['semesterenddate'].value;
+      otherdet.latefee=this.f['latefee'].value;
+      otherdet.entityid=this.f['entityid'].value;
+      otherdet.programid=this.f['programid'].value;
+      otherdet.semester=this.f['semestercode'].value;
+      otherdet.feepending=this.f['feepending'].value;
+      otherdet.feetype=this.f['feetype'].value;
+      
+debugger;
+
+      this.myurl=this.myurl+"?"+"totalfee="+this.f['feeamount'].value+"&"+"Otherdetail="+otherdet.otherdetailforcontinue() ;
       return;}
       ,error: (err) =>{this.busystatus=false;
         this.studentservice.log(err.error.message);
@@ -123,15 +175,52 @@ export class ApplicationfeeComponent implements OnInit {
        }
 
 
-    if (this.feetype == 'newadm') {
+    if (this.category == 'newadm') {
 
       this.subs.add=this.studentservice.getAdmissionDetail(myfeeform).subscribe (
         { next:(res:any)=>{this.show = true;
-   
-         this.f['feeamount'].setValue(res[0].appfee);
+   console.log("feeform",res);
+          let totalfee:any =res[0].amount;
+         //this.f['feeamount'].setValue(res[0].appfee);
+         this.f['feeamount'].setValue(res[0].amount);
          this.f['studentname'].setValue(res[0]['studentname']);
+         this.f['applicationnumber'].setValue(res[0]['applicationnumber']);
+         this.f['branchid'].setValue(res[0]['branchid']);
+         this.f['programid'].setValue(res[0]['programid']);
+         this.f['semestercode'].setValue(res[0]['semestercode']);
+         this.f['feetype'].setValue(res[0]['feetype']);
+         this.f['semesterstartdate'].setValue(res[0]['semesterstartdate']);
+         this.f['semesterenddate'].setValue(res[0]['semesterenddate']);
+         this.f['entityid'].setValue(res[0]['entityid']);
+         this.f['programname'].setValue(res[0]['programname']);
+
          this.busystatus=false;
          this.studentservice.clear();
+
+      
+
+
+
+     
+        this.rectype="A";
+    const otherdet = new OtherDetail() ;
+    otherdet.category=this.category;
+    otherdet.rollnumber=this.f['applicationnumber'].value;
+    otherdet.studentname=this.f['studentname'].value;
+    otherdet.programname=this.f['programname'].value;
+    otherdet.rectype=this.rectype;
+    otherdet.semesterstartdate=this.f['semesterstartdate'].value;
+    otherdet.semesterenddate=this.f['semesterenddate'].value;
+    otherdet.latefee=this.f['latefee'].value;
+    otherdet.entityid=this.f['entityid'].value;
+    otherdet.programid=this.f['programid'].value;
+    otherdet.semester=this.f['semestercode'].value;
+    otherdet.feepending=this.f['feepending'].value;
+    otherdet.feetype=this.f['feetype'].value;
+
+
+
+         this.myurl=this.myurl+"?"+"totalfee="+totalfee+"&"+"Otherdetail="+otherdet.otherdetailforcontinue() ;
          return;}
          ,error: (err) =>{this.busystatus=false;
            this.studentservice.log(err.error.message);

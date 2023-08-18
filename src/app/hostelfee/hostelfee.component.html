@@ -88,7 +88,7 @@
 
             <div *ngIf="showrollno" class="col-md-4 col-sm-4 col-lg-2 p-2 bd-highlight">
               <label>Roll Number</label>
-              <input appBlockCopyPasteDirective type="text" class="form-control" formControlName="rollno"
+              <input appAllowNumber appBlockCopyPasteDirective type="text" class="form-control" formControlName="rollno"
                 [ngClass]="{ 'is-invalid': submitted && f['rollno'].errors}" [readonly]="show" placeholder="Roll Number"
                 width="20%">
               <div *ngIf="submitted && f['rollno']['errors']" class="invalid-feedback">

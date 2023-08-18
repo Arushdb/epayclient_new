@@ -15,6 +15,10 @@ import { PostfeeComponent } from './postfee/postfee.component'
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {ResponseInterceptorService} from './services/response-interceptor.service';
 import { BlockCopyPasteDirectiveDirective } from './block-copy-paste-directive.directive';
+
+import { AllowNumberDirective } from './allow-number.directive';
+import { SpecialCharacterDirective } from './special-character.directive';
+import { ReplaceDirective } from './replace.directive';
 //import { FeepaymentComponent } from './feepayment/feepayment.component'
 
 
@@ -29,6 +33,10 @@ import { BlockCopyPasteDirectiveDirective } from './block-copy-paste-directive.d
     HostelfeeComponent,
     PostfeeComponent,
     BlockCopyPasteDirectiveDirective,
+    
+    AllowNumberDirective,
+    SpecialCharacterDirective,
+    ReplaceDirective,
     
   ],
   imports: [
