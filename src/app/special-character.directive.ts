@@ -4,7 +4,7 @@ import { Directive, HostListener } from '@angular/core';
   selector: '[appSpecialCharacter]'
 })
 export class SpecialCharacterDirective {
-  regexpstr='^[a-zA-Z0-9 @_/]*$';
+  regexpstr='^[a-zA-Z0-9 _/]*$';
 
   constructor() { }
   @HostListener('keypress',['$event']) onkeypress(event:KeyboardEvent){

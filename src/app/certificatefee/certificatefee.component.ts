@@ -233,7 +233,8 @@ export class CertificatefeeComponent implements OnInit {
           // +','+this.f['semestercode'].value
           // +','+"N"
           // +','+this.f['feetype'].value ) ; 
-         
+         let add:string =this.f['address'].value;
+         add =add.replaceAll(',',' ');
           this.rectype="E";
           const otherdet = new OtherDetail() ;
           otherdet.category=this.category;
@@ -242,7 +243,7 @@ export class CertificatefeeComponent implements OnInit {
           otherdet.studentname=this.f['studentname'].value;
           otherdet.programname=this.f['programname'].value;
           otherdet.rectype=this.rectype;
-          otherdet.address=this.f['address'].value;
+          otherdet.address=add;
           otherdet.pincode=this.f['pincode'].value;
           otherdet.phone=this.f['phone'].value;
           otherdet.semester=this.f['semestercode'].value;
