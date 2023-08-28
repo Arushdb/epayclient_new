@@ -101,7 +101,8 @@ export class StudentfeeComponent implements OnInit {
       entityid:[''],
       programid:[''],
       feepending:[''],
-      feetype:['']
+      feetype:[''],
+      defaulter:['']
 
 
 
@@ -147,6 +148,7 @@ this.subs.add=this.studentservice.getStudentDetail(myfeeform).subscribe (
 
     this.f['totalfee'].setValue(totalfee);
     this.f['feetype'].setValue(res[0].feetype);
+    this.f['defaulter'].setValue(res[0].defaulter);
   
 
 debugger;
@@ -177,6 +179,7 @@ debugger;
     otherdet.semester=this.f['pendingsemester'].value;
     otherdet.feepending=this.f['feepending'].value;
     otherdet.feetype=this.f['feetype'].value;
+    otherdet.defaulter=this.f['defaulter'].value;
    
 
    // this.router.navigate([this.myurl,{ totalfee: btoa(totalfee),Otherdetail: otherdetail},]);

@@ -22,6 +22,7 @@ export class OtherDetail {
     mode:string="";
     dob:string="";
     certificatetype:string="";
+    defaulter:string="";
     
    
    
@@ -48,7 +49,8 @@ export class OtherDetail {
          +this.coma+this.programid
          +this.coma+this.semester
          +this.coma+this.feepending
-         +this.coma+this.feetype);
+         +this.coma+this.feetype
+         +this.coma+this.defaulter);
     }
     public  otherdetailforcertificate():string{
 
