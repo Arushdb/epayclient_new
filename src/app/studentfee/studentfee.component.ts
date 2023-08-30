@@ -6,6 +6,7 @@ import { StudentService } from '../services/student.service';
 import { SubscriptionContainer } from 'src/app/shared/subscription-container';
 import { Location } from '@angular/common';
 import {OtherDetail} from '../other-detail' ;
+import { AESEncryptDecryptService } from '../services/aesencrypt-decrypt.service';
 
 
 @Component({
@@ -41,6 +42,7 @@ export class StudentfeeComponent implements OnInit {
    
     private location: Location,
     private _Activatedroute: ActivatedRoute,
+    private theAESEncryptDecryptService :AESEncryptDecryptService,
 
 
     private elementRef: ElementRef) { }
@@ -184,10 +186,12 @@ debugger;
 
    // this.router.navigate([this.myurl,{ totalfee: btoa(totalfee),Otherdetail: otherdetail},]);
    // this.myurl=this.myurl+"?"+"totalfee="+totalfee+"&"+"Otherdetail="+otherdetail ;
-    this.myurl=this.myurl+"?"+"totalfee="+totalfee+"&"+"Otherdetail="+otherdet.otherdetailforcontinue() ;
-     
-
-    //this.feeForm.get('feeamount').setValue(res[0].amount);
+        let encdata=this.theAESEncryptDecryptService.encrypt(otherdet.otherdetailforcontinue());
+     totalfee=this.theAESEncryptDecryptService.encrypt(totalfee);
+  console.log("encData:"+encdata+"Total fee:"+totalfee);
+  this.myurl=this.myurl+"?"+"totalfee="+totalfee+"&"+"Otherdetail="+encdata ;
+  
+  //this.feeForm.get('feeamount').setValue(res[0].amount);
 
      
     this.busystatus=false;
