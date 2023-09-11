@@ -19,6 +19,7 @@ import { BlockCopyPasteDirectiveDirective } from './block-copy-paste-directive.d
 import { AllowNumberDirective } from './allow-number.directive';
 import { SpecialCharacterDirective } from './special-character.directive';
 import { ReplaceDirective } from './replace.directive';
+import { ViewfeestatusComponent } from './viewfeestatus/viewfeestatus.component';
 //import { FeepaymentComponent } from './feepayment/feepayment.component'
 
 
@@ -37,6 +38,7 @@ import { ReplaceDirective } from './replace.directive';
     AllowNumberDirective,
     SpecialCharacterDirective,
     ReplaceDirective,
+    ViewfeestatusComponent,
     
   ],
   imports: [

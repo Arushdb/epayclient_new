@@ -6,6 +6,7 @@ import { HostelfeeComponent } from './hostelfee/hostelfee.component';
 import { MainComponent } from './main/main.component';
 import { PostfeeComponent } from './postfee/postfee.component';
 import { StudentfeeComponent } from './studentfee/studentfee.component';
+import { ViewfeestatusComponent } from './viewfeestatus/viewfeestatus.component';
 
 const routes: Routes = [
   
@@ -23,6 +24,7 @@ const routes: Routes = [
     {path:'rescertificate',component:CertificatefeeComponent,data:{certificatetype:"res",cat:"CER"}},
     {path:'hostelfee',component:HostelfeeComponent ,data:{cat:"HOS"}},
     {path:'postfee',component:PostfeeComponent,data:{cat:"POS"}},
+    {path:'viewfeestatus',component:ViewfeestatusComponent},
     {path:'**',component:MainComponent}
 
    
