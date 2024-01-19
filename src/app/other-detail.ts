@@ -23,6 +23,9 @@ export class OtherDetail {
     dob:string="";
     certificatetype:string="";
     defaulter:string="";
+    entityName:string="";
+    branchName:string="";
+    branchid:string="";
     
    
    
@@ -50,7 +53,13 @@ export class OtherDetail {
          +this.coma+this.semester
          +this.coma+this.feepending
          +this.coma+this.feetype
-         +this.coma+this.defaulter);
+         +this.coma+this.defaulter
+         +this.coma+this.entityName
+         +this.coma+this.branchName
+         +this.coma+this.branchid
+         
+         
+         );
     }
     public  otherdetailforcertificate():string{
 
