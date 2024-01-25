@@ -223,7 +223,7 @@ export class CertificatefeeComponent implements OnInit {
           this.f['certificatetype'].setValue(this.certificatetype);
           this.f['entityid'].setValue(res[0]['entityid']);
     
-          debugger;
+          
     
           // this.otherdetail=(this.category +','+this.f['applicationnumber'].value+','+res[0]['studentname']+
           // ','+this.f['programid'].value+','+"A" +','+this.f['semesterstartdate'].value

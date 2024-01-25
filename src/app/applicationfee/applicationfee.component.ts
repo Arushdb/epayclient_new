@@ -143,7 +143,7 @@ export class ApplicationfeeComponent implements OnInit {
       this.f['programname'].setValue(res[0]['programname']);
 
 
-      debugger;
+      
 
      
       this.rectype="A";
@@ -162,7 +162,7 @@ export class ApplicationfeeComponent implements OnInit {
       otherdet.feepending=this.f['feepending'].value;
       otherdet.feetype=this.f['feetype'].value;
       
-debugger;
+
 
       this.myurl=this.myurl+"?"+"totalfee="+this.f['feeamount'].value+"&"+"Otherdetail="+otherdet.otherdetailforcontinue() ;
       return;}

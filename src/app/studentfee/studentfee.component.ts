@@ -159,7 +159,7 @@ this.subs.add=this.studentservice.getStudentDetail(myfeeform).subscribe (
     this.f['branchid'].setValue(res[0].branchid);
   
 
-debugger;
+
     this.feepending = res[0].feepending;
 
     // otherdetail=(this.category +','+this.f['rollnumber'].value+','+res[0]['studentname']+
@@ -191,6 +191,8 @@ debugger;
     otherdet.branchName=this.f['branchName'].value
     otherdet.entityName=this.f['entityName'].value
     otherdet.branchid=this.f['branchid'].value
+
+    
    
 
    // this.router.navigate([this.myurl,{ totalfee: btoa(totalfee),Otherdetail: otherdetail},]);

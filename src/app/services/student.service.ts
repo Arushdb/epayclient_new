@@ -61,7 +61,7 @@ export class StudentService {
   getcertificate(form: { [x: string]: string | number | boolean; sm1: boolean; sm2: boolean; sm3: boolean; sm4: boolean; sm5: boolean; sm6: boolean; sm7: boolean; sm8: boolean; sm9: boolean; sm10: boolean; sm11: boolean; sm12: boolean; dob: string | number | boolean; }) {
     var myurl = this.url + "/api/test/certificate";
     let headers: HttpHeaders = new HttpHeaders();
-    debugger;
+    
 
     let param: HttpParams = new HttpParams();
     let semary:Array<string>=[];

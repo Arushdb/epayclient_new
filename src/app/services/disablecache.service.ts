@@ -11,7 +11,7 @@ export class DisablecacheService implements HttpInterceptor {
   constructor() { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    debugger;
+    
     const nextReq = req.clone({
       headers: req.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate')
       .set('Pragma', 'no-cache')

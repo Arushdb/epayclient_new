@@ -92,7 +92,7 @@ export class ViewfeestatusComponent {
       return;
      }
       
-      debugger;
+      
 
 
       this.myurl = this.studentservice.url+'/viewfeestatus';
