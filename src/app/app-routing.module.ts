@@ -15,7 +15,7 @@ const routes: Routes = [
     {path:'main',component:MainComponent},
     {path:'student',component:StudentfeeComponent,data:{cat:"CON"}},
   
-    {path:'applicationfee',component:ApplicationfeeComponent,data:{feetype:"appfee",cat:"appfee"}},
+    {path: 'applicationfee/:appno',component:ApplicationfeeComponent,data:{feetype:"appfee",cat:"appfee"},pathMatch:'full'},
     {path:'newadmissionfee',component:ApplicationfeeComponent,data:{feetype:"newadm",cat:"newadm"}},
     {path:'migcertificate',component:CertificatefeeComponent,data:{certificatetype:"mig",cat:"CER"}},
     {path:'degcertificate',component:CertificatefeeComponent,data:{certificatetype:"deg",cat:"CER"}},
@@ -35,7 +35,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{ useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

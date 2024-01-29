@@ -17,7 +17,7 @@ export class ApplicationfeeComponent implements OnInit {
   feeForm!: FormGroup;
   
   submitted = false;
-
+  appno:string|null=""; 
   show!: boolean;
   feetype: any;
   subs = new SubscriptionContainer();
@@ -56,6 +56,8 @@ export class ApplicationfeeComponent implements OnInit {
   }
   ngOnInit(): void {
 
+    this.appno = this._Activatedroute.snapshot.paramMap.get('appno');
+
     this.show = false;
     this.submitted = false;
     this.subs.add = this._Activatedroute.data.subscribe(data => {
@@ -67,11 +69,11 @@ export class ApplicationfeeComponent implements OnInit {
     this.myurl = this.studentservice.url+'/makepayment';
 
 
-    
+    debugger;
 
     this.feeForm = this.formBuilder.group({
 
-      applicationno: [''],
+      applicationno: this.appno,
 
 
       studentname: [''],
@@ -93,6 +95,8 @@ export class ApplicationfeeComponent implements OnInit {
     if (this.category == 'appfee') {
       this.title = "Application Fee";
       this.f['applicationno'].setValidators([Validators.required, Validators.minLength(6)])
+      this.submit(this.feeForm);
+    
     }
 
 
@@ -102,6 +106,7 @@ export class ApplicationfeeComponent implements OnInit {
 
     }
 
+   
 
   }
 
