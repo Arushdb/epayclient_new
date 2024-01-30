@@ -5,6 +5,7 @@ import { StudentService } from '../services/student.service';
 import { SubscriptionContainer } from '../shared/subscription-container';
 import { Location, UpperCasePipe } from '@angular/common';
 import {OtherDetail} from '../other-detail'
+import { AESEncryptDecryptService } from '../services/aesencrypt-decrypt.service';
 
 @Component({
   selector: 'app-applicationfee',
@@ -33,6 +34,8 @@ export class ApplicationfeeComponent implements OnInit {
     private location: Location,
 
     private _Activatedroute: ActivatedRoute,
+    private theAESEncryptDecryptService :AESEncryptDecryptService,
+
     private elementRef: ElementRef
     ) { }
 
@@ -121,6 +124,7 @@ export class ApplicationfeeComponent implements OnInit {
     let myfeeform: any;
     myfeeform = this.feeForm.getRawValue();
     this.busystatus=true;
+    let totalfee: string="";
     if (this.category== 'appfee') {
 
      
@@ -166,10 +170,17 @@ export class ApplicationfeeComponent implements OnInit {
       otherdet.semester=this.f['semestercode'].value;
       otherdet.feepending=this.f['feepending'].value;
       otherdet.feetype=this.f['feetype'].value;
+
+     
+      totalfee =String(parseFloat(res[0].appfee));
       
+      let encdata=this.theAESEncryptDecryptService.encrypt(otherdet.otherdetailforcontinue());
+      totalfee=this.theAESEncryptDecryptService.encrypt(totalfee);
+   console.log("encData:"+encdata+"Total fee:"+totalfee);
+   this.myurl=this.myurl+"?"+"totalfee="+totalfee+"&"+"Otherdetail="+encdata ;
 
 
-      this.myurl=this.myurl+"?"+"totalfee="+this.f['feeamount'].value+"&"+"Otherdetail="+otherdet.otherdetailforcontinue() ;
+     // this.myurl=this.myurl+"?"+"totalfee="+this.f['feeamount'].value+"&"+"Otherdetail="+otherdet.otherdetailforcontinue() ;
       return;}
       ,error: (err) =>{this.busystatus=false;
         this.studentservice.log(err.error.message);
