@@ -170,7 +170,12 @@ export class ApplicationfeeComponent implements OnInit {
       otherdet.semester=this.f['semestercode'].value;
       otherdet.feepending=this.f['feepending'].value;
       otherdet.feetype=this.f['feetype'].value;
+      otherdet.defaulter='N';
+      otherdet.entityName='None';
+      otherdet.branchName='None';
+      otherdet.branchid='None';
 
+     
      
       totalfee =String(parseFloat(res[0].appfee));
       
