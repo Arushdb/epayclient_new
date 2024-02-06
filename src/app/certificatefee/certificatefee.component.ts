@@ -7,6 +7,7 @@ import { Location, UpperCasePipe } from '@angular/common';
 import { AgRadioButton } from 'ag-grid-community';
 import { MessageService } from '../services/message.service';
 import { OtherDetail } from '../other-detail';
+import { AESEncryptDecryptService } from '../services/aesencrypt-decrypt.service';
 
 @Component({
   selector: 'app-certificatefee',
@@ -45,6 +46,8 @@ export class CertificatefeeComponent implements OnInit {
     private router: Router,
     private studentservice: StudentService,
     private location: Location,
+    private theAESEncryptDecryptService :AESEncryptDecryptService,
+
 
     private _Activatedroute: ActivatedRoute,
     private elementRef: ElementRef,
@@ -199,6 +202,9 @@ export class CertificatefeeComponent implements OnInit {
      
         next: (res: any) => {
           this.show = true;
+          let totalfee: string="";
+          totalfee = String(parseFloat(res[0].amount));
+
           console.log("certificate response",res);
           this.f['feeamount'].setValue(res[0].amount);
           this.f['studentname'].setValue(res[0]['studentname']);
@@ -251,9 +257,16 @@ export class CertificatefeeComponent implements OnInit {
           otherdet.semester=this.f['semestercode'].value;
           otherdet.certificatetype=this.f['certificatetype'].value;
           otherdet.programid=this.f['programid'].value;
-             
+         
+          let encdata=this.theAESEncryptDecryptService.encrypt(otherdet.otherdetailforcertificate());
+          totalfee=this.theAESEncryptDecryptService.encrypt(totalfee);
+       console.log("encData:"+encdata+"Total fee:"+totalfee);
+       this.myurl=this.myurl+"?"+"totalfee="+totalfee+"&"+"Otherdetail="+encdata ;
+       
+       this.busystatus=false;
+       this.studentservice.clear();
     
-          this.myurl=this.myurl+"?"+"totalfee="+this.f['feeamount'].value+"&"+"Otherdetail="+otherdet.otherdetailforcertificate() ;
+         // this.myurl=this.myurl+"?"+"totalfee="+this.f['feeamount'].value+"&"+"Otherdetail="+otherdet.otherdetailforcertificate() ;
           
           return;
         }
