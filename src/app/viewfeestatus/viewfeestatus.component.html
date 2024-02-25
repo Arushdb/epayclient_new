@@ -1,80 +1,91 @@
-
 <app-message></app-message>
-<app-spinner [spinnerstatus] ='busystatus'></app-spinner>
+<app-spinner [spinnerstatus]='busystatus'></app-spinner>
 <div class="container">
-   
+
     <div class="card">
-    
+
         <div class="card-body  border border-primary">
             <button type="button" class="btn-close" (click)="goBack()" aria-label="Close"></button>
-            
+
             <h3 class="card-header">View fee status</h3>
 
-            <form  #form="ngForm" [formGroup]="feeForm" (ngSubmit)="submit(form)">
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="selectedOption">
+                <mat-radio-button  value="1">By Roll Number</mat-radio-button>
+                <mat-radio-button value="2">By Payment ref number</mat-radio-button>
+              </mat-radio-group>
 
-                <div class="row">
+            <form #form="ngForm" [formGroup]="feeForm" (ngSubmit)="submit(form)">
+                <div class="row" *ngIf="selectedOption==1">
+                    <div class="col-md-12 col-sm-12 col-lg-2 p-2 bd-highlight">
+                        <label>Roll Number</label>
+                        <input appBlockCopyPasteDirective appAllowNumber type="text" class="form-control"
+                            formControlName="rollno" [ngClass]="{ 'is-invalid': submitted && f['rollno'].errors}"
+                            [readonly]="show" placeholder="Enter Roll number">
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-lg-3 p-2 bd-highlight">
+                        <datepicker (datePickerEvent)="getdate($event)"></datepicker>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-lg-3 p-2 bd-highlight">
+                        <daterangepicker (rangePickerEvent)="getdaterange($event)"></daterangepicker>
+                    </div>
+
+
+                </div>
+
+
+                <div class="row" *ngIf="selectedOption==2">
 
                     <div class="col-md-4 col-sm-4 col-lg-3 p-2 bd-highlight">
                         <label>SBIePay Reference ID</label>
-                        <input appBlockCopyPasteDirective appAllowNumber type="text" class="form-control" formControlName="ATRN" [ngClass]="{ 'is-invalid': submitted && f['ATRN'].errors}" [readonly] = "show" placeholder="SBI epay referenceId"
-                           >
-                            <div *ngIf="submitted && f['ATRN']['errors']" class="invalid-feedback">
-                                <div *ngIf="f['ATRN']['errors']['required']">SBI epay ref number is required </div>
+                        <input appBlockCopyPasteDirective appAllowNumber type="text" class="form-control"
+                            formControlName="ATRN" [ngClass]="{ 'is-invalid': submitted && f['ATRN'].errors}"
+                            [readonly]="show" placeholder="SBI epay referenceId">
+                        <div *ngIf="submitted && f['ATRN']['errors']" class="invalid-feedback">
+                            <div *ngIf="f['ATRN']['errors']['required']">SBI epay ref number is required </div>
 
-                                <div *ngIf=" f['ATRN']['errors']['minlength'] && category=='newadm'">
-                                     Minimum 10 digits SBI ePayref Number is required</div>
-                                                 
-                             
-                            </div>
+                            <div *ngIf=" f['ATRN']['errors']['minlength'] && category=='newadm'">
+                                Minimum 10 digits SBI ePayref Number is required</div>
+
+
+                        </div>
                     </div>
                     <div class="col-md-1 col-sm-1 col-lg-1 p-2 bd-highlight">
-                       <label></label>
-                        <input style="border: 0cm;"  type="text" class="form-control"  [readonly] =true  value="OR">
+                        <label></label>
+                        <input style="border: 0cm;padding:2px;" type="text" class="form-control" [readonly]=true value="OR">
                     </div>
                     <div class="col-md-4 col-sm-4 col-lg-3 p-2 bd-highlight">
                         <label>Merchant Order Number</label>
-                        <input appBlockCopyPasteDirective  appAllowNumber type="text" class="form-control" formControlName="merchantorderno" [ngClass]="{ 'is-invalid': submitted && f['merchantorderno'].errors}"  placeholder="Merchant Order No"
-                           >
-                            <div *ngIf="submitted && f['merchantorderno']['errors']" class="invalid-feedback">
-                                <div *ngIf="f['merchantorderno']['errors']['required']">SBI epay ref number is required </div>
-
-                                <div *ngIf=" f['merchantorderno']['errors']['minlength']">
-                                     Minimum 10 digits SBI ePayref Number is required</div>
-                                                 
-                             
+                        <input appBlockCopyPasteDirective appAllowNumber type="text" class="form-control"
+                            formControlName="merchantorderno"
+                            [ngClass]="{ 'is-invalid': submitted && f['merchantorderno'].errors}"
+                            placeholder="Merchant Order No">
+                        <div *ngIf="submitted && f['merchantorderno']['errors']" class="invalid-feedback">
+                            <div *ngIf="f['merchantorderno']['errors']['required']">SBI epay ref number is required
                             </div>
-                    </div>
-                   
-                </div>
 
-                <div class="row">
-                    <div  class="col-md col-sm col-lg-2 p-2 bd-highlight" >
-                        <label>Fee Amount</label>
-                        <input appBlockCopyPasteDirective  appAllowNumber  type="text" class="form-control "   formControlName="feeamount" [ngClass]="{ 'is-invalid': submitted && f['feeamount'].errors}" >
-                        <div *ngIf="submitted && f['feeamount']['errors']" class="invalid-feedback">
-                            <div *ngIf="f['feeamount']['errors']['min']">Enter valid Amount </div>
+                            <div *ngIf=" f['merchantorderno']['errors']['minlength']">
+                                Minimum 10 digits SBI ePayref Number is required</div>
 
-                                             
-                         
+
                         </div>
-                    
-                    
                     </div>
-                    <div class="col-md-4 col-sm-4 col-lg-3 p-2 m-2 bd-highlight">
-                       
-                        <button type="submit" class="btn btn-primary m-2 btn-block "  >View</button>
-                        <a id="linkid" ></a>
-                        
-                        <button type="button" class="btn btn-primary m-2" (click)="goBack()">Cancel</button>
-                    </div> 
 
                 </div>
-               
+
+                <div class="row" >
+                    
+                    <div class="col-md-4 col-sm-4 col-lg-3 p-2 m-2 bd-highlight">
+
+                        <button type="submit" class="btn btn-primary m-2 btn-block ">View</button>
+                        <a id="linkid"></a>
+
+                        <button type="button" class="btn btn-primary m-2" (click)="goBack()">Cancel</button>
+                    </div>
+
+                </div>
+
 
             </form>
         </div>
     </div>
 </div>
-
-
-

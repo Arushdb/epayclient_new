@@ -20,6 +20,8 @@ import { AllowNumberDirective } from './allow-number.directive';
 import { SpecialCharacterDirective } from './special-character.directive';
 import { ReplaceDirective } from './replace.directive';
 import { ViewfeestatusComponent } from './viewfeestatus/viewfeestatus.component';
+import { DateRangePickerComponent } from './date-range-picker/date-range-picker.component';
+import { DatePickerComponent } from './date-picker/date-picker.component';
 //import { FeepaymentComponent } from './feepayment/feepayment.component'
 
 
@@ -39,6 +41,8 @@ import { ViewfeestatusComponent } from './viewfeestatus/viewfeestatus.component'
     SpecialCharacterDirective,
     ReplaceDirective,
     ViewfeestatusComponent,
+    DateRangePickerComponent,
+    DatePickerComponent,
     
   ],
   imports: [
