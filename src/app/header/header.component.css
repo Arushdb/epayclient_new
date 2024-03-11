@@ -68,3 +68,16 @@ background-color:blueviolet;
   .m-b-10{
 	  margin-bottom: 10px important;
   }
+
+  .blink {
+	animation: blinker 1.5s linear infinite;
+	color: red;
+	font-family: sans-serif;
+	
+}
+
+@keyframes blinker {
+	40% {
+		opacity: 0;
+	}
+}
