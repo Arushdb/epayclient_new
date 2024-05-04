@@ -98,6 +98,7 @@ export class CertificatefeeComponent implements OnInit {
       pincode: ['', [Validators.required, Validators.minLength(6)]],
       dob: ['', Validators.required],
       phone: ['', [Validators.required, Validators.minLength(10)]],
+      email: ['', [Validators.required,Validators.email]],
       feeamount: [''],
       programid: [''],
       semestercode: [''],
@@ -228,6 +229,7 @@ export class CertificatefeeComponent implements OnInit {
          // this.f['semesterenddate'].setValue(res[0]['semesterenddate']);
           this.f['certificatetype'].setValue(this.certificatetype);
           this.f['entityid'].setValue(res[0]['entityid']);
+          this.f['rollno'].setValue(res[0]['roll_number']);
     
           
     
@@ -252,6 +254,7 @@ export class CertificatefeeComponent implements OnInit {
           otherdet.address=add;
           otherdet.pincode=this.f['pincode'].value;
           otherdet.phone=this.f['phone'].value;
+          otherdet.email=this.f['email'].value;
           otherdet.semester=this.f['semestercode'].value;
           otherdet.mode=this.f['mode'].value;
           otherdet.semester=this.f['semestercode'].value;
@@ -262,7 +265,7 @@ export class CertificatefeeComponent implements OnInit {
           totalfee=this.theAESEncryptDecryptService.encrypt(totalfee);
        console.log("encData:"+encdata+"Total fee:"+totalfee);
        this.myurl=this.myurl+"?"+"totalfee="+totalfee+"&"+"Otherdetail="+encdata ;
-       
+      
        this.busystatus=false;
        this.studentservice.clear();
     

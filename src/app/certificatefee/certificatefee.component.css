@@ -23,4 +23,17 @@
     md-checkbox[ng-readonly="true"]{
         z-index: -1;
     }
+
+    .blink {
+        animation: blinker 1.5s linear infinite;
+        color:dodgerblue;
+        font-family: sans-serif;
+        
+    }
+    
+    @keyframes blinker {
+        50% {
+            opacity: 0;
+        }
+    }
    

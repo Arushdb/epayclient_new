@@ -26,6 +26,7 @@ export class OtherDetail {
     entityName:string="";
     branchName:string="";
     branchid:string="";
+    email:string="";
     
    
    
@@ -77,6 +78,7 @@ export class OtherDetail {
         +this.coma+this.programid
         +this.coma+this.semester
         +this.coma+this.certificatetype
+        +this.coma+this.email
         );
    }
 

@@ -1,3 +1,5 @@
+<marquee direction="left" class="blink" > For any Certificate related issues,Please send a mail to deicertificate@gmail.com</marquee>
+
 <app-message></app-message>
 <app-spinner [spinnerstatus]="busystatus"></app-spinner>
 <div class="container">
@@ -62,7 +64,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-2 col-sm-2 col-lg-2 p-2 bd-highlight">
+          <div class="col-md-4 col-sm-4 col-lg-4 p-2 bd-highlight">
             <label>Pincode </label>
             <input appAllowNumber appBlockCopyPasteDirective type="text" class="form-control" formControlName="pincode"
               [ngClass]="{ 'is-invalid': submitted && f['pincode']['errors']}" [readonly]="show" placeholder="Pincode">
@@ -80,6 +82,16 @@
               [ngClass]="{ 'is-invalid': submitted && f['phone']['errors']}" [readonly]="show" placeholder="Phone">
             <div *ngIf="submitted && f['phone']['errors']" class="invalid-feedback">
               <div *ngIf="f['phone']['errors']">Phone Number is required
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-4 col-lg-4 p-2 bd-highlight">
+            <label>Email </label>
+            <input appAllowNumber appBlockCopyPasteDirective  type="text" [disabled]="show" class="form-control" formControlName="email"
+              [ngClass]="{ 'is-invalid': submitted && f['email']['errors']}" [readonly]="show" placeholder="Email">
+            <div *ngIf="submitted && f['email']['errors']" class="invalid-feedback">
+              <div *ngIf="f['email']['errors']">Email  is required
               </div>
             </div>
           </div>
