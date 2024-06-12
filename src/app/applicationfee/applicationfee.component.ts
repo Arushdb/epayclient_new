@@ -195,13 +195,15 @@ export class ApplicationfeeComponent implements OnInit {
      
        }
 
-
     if (this.category == 'newadm') {
 
       this.subs.add=this.studentservice.getAdmissionDetail(myfeeform).subscribe (
-        { next:(res:any)=>{this.show = true;
-   console.log("feeform",res);
-          let totalfee:any =res[0].amount;
+        { next:(res:any)=>{
+          this.show = true;
+          
+          console.log("feeform",res);
+         let totalfee:string;
+          //console.log("total fee",totalfee);
          //this.f['feeamount'].setValue(res[0].appfee);
          this.f['feeamount'].setValue(res[0].amount);
          this.f['studentname'].setValue(res[0]['studentname']);
@@ -217,12 +219,7 @@ export class ApplicationfeeComponent implements OnInit {
 
          this.busystatus=false;
          this.studentservice.clear();
-
-      
-
-
-
-     
+    
         this.rectype="A";
     const otherdet = new OtherDetail() ;
     otherdet.category=this.category;
@@ -239,9 +236,12 @@ export class ApplicationfeeComponent implements OnInit {
     otherdet.feepending=this.f['feepending'].value;
     otherdet.feetype=this.f['feetype'].value;
 
+totalfee =String(parseFloat(res[0].amount));
+    let encdata=this.theAESEncryptDecryptService.encrypt(otherdet.otherdetailforcontinue());
+      totalfee=this.theAESEncryptDecryptService.encrypt(totalfee);
 
-
-         this.myurl=this.myurl+"?"+"totalfee="+totalfee+"&"+"Otherdetail="+otherdet.otherdetailforcontinue() ;
+      this.myurl=this.myurl+"?"+"totalfee="+totalfee+"&"+"Otherdetail="+encdata ;
+      
          return;}
          ,error: (err) =>{this.busystatus=false;
            this.studentservice.log(err.error.message);
