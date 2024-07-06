@@ -16,7 +16,7 @@ const routes: Routes = [
     {path:'student',component:StudentfeeComponent,data:{cat:"CON"}},
   
     {path: 'applicationfee/:appno',component:ApplicationfeeComponent,data:{feetype:"appfee",cat:"appfee"},pathMatch:'full'},
-    {path:'newadmissionfee',component:ApplicationfeeComponent,data:{feetype:"newadm",cat:"newadm"}},
+    {path:'newadmissionfee/:appno',component:ApplicationfeeComponent,data:{feetype:"newadm",cat:"newadm"},pathMatch:'full'},
     {path:'migcertificate',component:CertificatefeeComponent,data:{certificatetype:"mig",cat:"CER"}},
     {path:'degcertificate',component:CertificatefeeComponent,data:{certificatetype:"deg",cat:"CER"}},
     {path:'trncertificate',component:CertificatefeeComponent,data:{certificatetype:"trn",cat:"CER"}},
