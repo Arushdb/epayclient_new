@@ -102,11 +102,11 @@ export class ApplicationfeeComponent implements OnInit {
     
     }
 
-
+ 
     if (this.category == 'newadm') {
       this.title = "Admission Fee";
       this.f['applicationno'].setValidators([Validators.required, Validators.minLength(10)])
-
+      this.submit(this.feeForm);// Arush on 06-07-2024 New Admission changes for payment.
     }
 
    
