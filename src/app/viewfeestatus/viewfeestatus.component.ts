@@ -98,6 +98,8 @@ export class ViewfeestatusComponent implements AfterViewInit {
       ATRN: [''],
      // feeamount: ['0', Validators.min(100)],
       merchantorderno: [''],
+      appno: [''],
+      pgmid: [''],
       rollno: [''],
       startdate: [''],
       enddate: [''],
@@ -142,6 +144,18 @@ debugger;
 
     this.myurl = this.studentservice.url + '/viewfeestatus';
     let elem: any = document.getElementById("linkid");
+    if (this.selectedOption == 3) {
+      this.myurl = this.myurl + "?" + "appno=" 
+      + this.f['appno'].value + "&"  
+      
+      + "&" + "pgmid=" + this.f['pgmid'].value + "&" + "selectedOption=" + this.selectedOption;
+    
+        // elem.setAttribute("merchantorderno", this.f['merchantorderno'].value);
+        // elem.setAttribute("feeamount", this.f['feeamount'].value);
+        // elem.setAttribute("ATRN", this.f['ATRN'].value);
+        // elem.setAttribute("selectedOption", this.selectedOption);
+        elem.setAttribute("href", this.myurl);
+      }
 
     if (this.selectedOption == 2) {
       this.myurl = this.myurl + "?" + "merchantorderno=" 

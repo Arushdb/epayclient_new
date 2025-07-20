@@ -1,83 +1,78 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, MinLengthValidator, NgForm, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  MinLengthValidator,
+  NgForm,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StudentService } from '../services/student.service';
 import { SubscriptionContainer } from '../shared/subscription-container';
 import { Location, UpperCasePipe } from '@angular/common';
-import {OtherDetail} from '../other-detail'
+import { OtherDetail } from '../other-detail';
 import { AESEncryptDecryptService } from '../services/aesencrypt-decrypt.service';
 
 @Component({
   selector: 'app-applicationfee',
   templateUrl: './applicationfee.component.html',
-  styleUrls: ['./applicationfee.component.css']
+  styleUrls: ['./applicationfee.component.css'],
 })
 export class ApplicationfeeComponent implements OnInit {
-
   myurl = this.studentservice.url;
   feeForm!: FormGroup;
-  
+
   submitted = false;
-  appno:string|null=""; 
+  appno: string | null = '';
   show!: boolean;
   feetype: any;
   subs = new SubscriptionContainer();
   busystatus: boolean = false;
   title!: string;
-  category :string="";
-  rectype: string="";
+  category: string = '';
+  rectype: string = '';
   //otherdetail: string="";
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private router: Router,
     private studentservice: StudentService,
     private location: Location,
 
     private _Activatedroute: ActivatedRoute,
-    private theAESEncryptDecryptService :AESEncryptDecryptService,
+    private theAESEncryptDecryptService: AESEncryptDecryptService,
 
     private elementRef: ElementRef
-    ) { }
+  ) {}
 
   // convenience getter for easy access to form fields
   get f() {
-
     return this.feeForm.controls;
   }
 
-
-
   ngOnDestroy(): void {
-    
     this.subs.dispose();
     this.elementRef.nativeElement.remove();
-
   }
 
   goBack(): void {
     this.location.back();
   }
   ngOnInit(): void {
-
     this.appno = this._Activatedroute.snapshot.paramMap.get('appno');
 
     this.show = false;
     this.submitted = false;
-    this.subs.add = this._Activatedroute.data.subscribe(data => {
-    
-    
-      this.category=data['cat'];
+    this.subs.add = this._Activatedroute.data.subscribe((data) => {
+      this.category = data['cat'];
     });
 
-    this.myurl = this.studentservice.url+'/makepayment';
-
+    this.myurl = this.studentservice.url + '/makepayment';
 
     debugger;
 
     this.feeForm = this.formBuilder.group({
-
       applicationno: this.appno,
-
 
       studentname: [''],
       feeamount: [''],
@@ -92,175 +87,182 @@ export class ApplicationfeeComponent implements OnInit {
       programname: [''],
       latefee: [''],
       feepending: [''],
-
     });
 
     if (this.category == 'appfee') {
-      this.title = "Application Fee";
-      this.f['applicationno'].setValidators([Validators.required, Validators.minLength(6)])
+      this.title = 'Application Fee';
+      this.f['applicationno'].setValidators([
+        Validators.required,
+        Validators.minLength(6),
+      ]);
       this.submit(this.feeForm);
-    
     }
 
- 
     if (this.category == 'newadm') {
-      this.title = "Admission Fee";
-      this.f['applicationno'].setValidators([Validators.required, Validators.minLength(10)])
-      this.submit(this.feeForm);// Arush on 06-07-2024 New Admission changes for payment.
+      this.title = 'Admission Fee';
+      this.f['applicationno'].setValidators([
+        Validators.required,
+        Validators.minLength(10),
+      ]);
+      //this.submit(this.feeForm);// Arush on 06-07-2024 New Admission changes for payment.
     }
-
-   
-
   }
 
   submit(form: any) {
-    
-    
-    this.f['applicationno'].setValue(String(this.f['applicationno'].value).toUpperCase());
+    this.f['applicationno'].setValue(
+      String(this.f['applicationno'].value).toUpperCase()
+    );
     //this.show=true;
     this.submitted = true;
-    if (form.invalid)
-      return;
+    if (form.invalid) return;
     let myfeeform: any;
     myfeeform = this.feeForm.getRawValue();
-    this.busystatus=true;
-    let totalfee: string="";
-    if (this.category== 'appfee') {
+    this.busystatus = true;
+    let totalfee: string = '';
+    if (this.category == 'appfee') {
+      // this.subs.add = this.studentservice.getApplicantDetail(myfeeform).subscribe((res:Object) => {
+      this.subs.add = this.studentservice
+        .getApplicantDetail(myfeeform)
+        .subscribe({
+          next: (res: any) => {
+            this.show = true;
 
-     
+            this.f['feeamount'].setValue(res[0].appfee);
+            this.f['studentname'].setValue(res[0]['studentname']);
+            this.busystatus = false;
+            this.studentservice.clear();
 
-     // this.subs.add = this.studentservice.getApplicantDetail(myfeeform).subscribe((res:Object) => {
-     this.subs.add=this.studentservice.getApplicantDetail(myfeeform).subscribe (
-     { next:(res:any)=>{this.show = true;
+            this.f['feeamount'].setValue(res[0].appfee);
+            this.f['studentname'].setValue(res[0]['studentname']);
+            this.f['applicationnumber'].setValue(res[0]['applicationnumber']);
+            this.f['branchid'].setValue(res[0]['branchid']);
+            this.f['programid'].setValue(res[0]['programid']);
+            this.f['semestercode'].setValue(res[0]['semestercode']);
+            this.f['feetype'].setValue(res[0]['feetype']);
+            this.f['semesterstartdate'].setValue(res[0]['semesterstartdate']);
+            this.f['semesterenddate'].setValue(res[0]['semesterenddate']);
+            this.f['entityid'].setValue(res[0]['entityid']);
+            this.f['feepending'].setValue(res[0]['feepending']);
+            this.f['programname'].setValue(res[0]['programname']);
 
-      this.f['feeamount'].setValue(res[0].appfee);
-      this.f['studentname'].setValue(res[0]['studentname']);
-      this.busystatus=false;
-      this.studentservice.clear();
+            this.rectype = 'A';
+            const otherdet = new OtherDetail();
+            otherdet.category = this.category;
+            otherdet.rollnumber = this.f['applicationnumber'].value;
+            otherdet.studentname = this.f['studentname'].value;
+            otherdet.programname = this.f['programname'].value;
+            otherdet.rectype = this.rectype;
+            otherdet.semesterstartdate = this.f['semesterstartdate'].value;
+            otherdet.semesterenddate = this.f['semesterenddate'].value;
+            otherdet.latefee = this.f['latefee'].value;
+            otherdet.entityid = this.f['entityid'].value;
+            otherdet.programid = this.f['programid'].value;
+            otherdet.semester = this.f['semestercode'].value;
+            otherdet.feepending = this.f['feepending'].value;
+            otherdet.feetype = this.f['feetype'].value;
+            otherdet.defaulter = 'N';
+            otherdet.entityName = 'None';
+            otherdet.branchName = 'None';
+            otherdet.branchid = 'None';
 
-      this.f['feeamount'].setValue(res[0].appfee);
-      this.f['studentname'].setValue(res[0]['studentname']);
-      this.f['applicationnumber'].setValue(res[0]['applicationnumber']);
-      this.f['branchid'].setValue(res[0]['branchid']);
-      this.f['programid'].setValue(res[0]['programid']);
-      this.f['semestercode'].setValue(res[0]['semestercode']);
-      this.f['feetype'].setValue(res[0]['feetype']);
-      this.f['semesterstartdate'].setValue(res[0]['semesterstartdate']);
-      this.f['semesterenddate'].setValue(res[0]['semesterenddate']);
-      this.f['entityid'].setValue(res[0]['entityid']);
-      this.f['feepending'].setValue(res[0]['feepending']);
-      this.f['programname'].setValue(res[0]['programname']);
+            totalfee = String(parseFloat(res[0].appfee));
 
+            let encdata = this.theAESEncryptDecryptService.encrypt(
+              otherdet.otherdetailforcontinue()
+            );
+            totalfee = this.theAESEncryptDecryptService.encrypt(totalfee);
+            console.log('encData:' + encdata + 'Total fee:' + totalfee);
+            this.myurl =
+              this.myurl +
+              '?' +
+              'totalfee=' +
+              totalfee +
+              '&' +
+              'Otherdetail=' +
+              encdata;
 
-      
-
-     
-      this.rectype="A";
-      const otherdet = new OtherDetail() ;
-      otherdet.category=this.category;
-      otherdet.rollnumber=this.f['applicationnumber'].value;
-      otherdet.studentname=this.f['studentname'].value;
-      otherdet.programname=this.f['programname'].value;
-      otherdet.rectype=this.rectype;
-      otherdet.semesterstartdate=this.f['semesterstartdate'].value;
-      otherdet.semesterenddate=this.f['semesterenddate'].value;
-      otherdet.latefee=this.f['latefee'].value;
-      otherdet.entityid=this.f['entityid'].value;
-      otherdet.programid=this.f['programid'].value;
-      otherdet.semester=this.f['semestercode'].value;
-      otherdet.feepending=this.f['feepending'].value;
-      otherdet.feetype=this.f['feetype'].value;
-      otherdet.defaulter='N';
-      otherdet.entityName='None';
-      otherdet.branchName='None';
-      otherdet.branchid='None';
-
-     
-     
-      totalfee =String(parseFloat(res[0].appfee));
-      
-      let encdata=this.theAESEncryptDecryptService.encrypt(otherdet.otherdetailforcontinue());
-      totalfee=this.theAESEncryptDecryptService.encrypt(totalfee);
-   console.log("encData:"+encdata+"Total fee:"+totalfee);
-   this.myurl=this.myurl+"?"+"totalfee="+totalfee+"&"+"Otherdetail="+encdata ;
-
-
-     // this.myurl=this.myurl+"?"+"totalfee="+this.f['feeamount'].value+"&"+"Otherdetail="+otherdet.otherdetailforcontinue() ;
-      return;}
-      ,error: (err) =>{this.busystatus=false;
-        this.studentservice.log(err.error.message);
-        this.feeForm.reset();
-        return;}});
-     
-     
-       }
-
-    if (this.category == 'newadm') {
-
-      this.subs.add=this.studentservice.getAdmissionDetail(myfeeform).subscribe (
-        { next:(res:any)=>{
-          this.show = true;
-          
-          console.log("feeform",res);
-         let totalfee:string;
-          //console.log("total fee",totalfee);
-         //this.f['feeamount'].setValue(res[0].appfee);
-         this.f['feeamount'].setValue(res[0].amount);
-         this.f['studentname'].setValue(res[0]['studentname']);
-         this.f['applicationnumber'].setValue(res[0]['applicationnumber']);
-         this.f['branchid'].setValue(res[0]['branchid']);
-         this.f['programid'].setValue(res[0]['programid']);
-         this.f['semestercode'].setValue(res[0]['semestercode']);
-         this.f['feetype'].setValue(res[0]['feetype']);
-         this.f['semesterstartdate'].setValue(res[0]['semesterstartdate']);
-         this.f['semesterenddate'].setValue(res[0]['semesterenddate']);
-         this.f['entityid'].setValue(res[0]['entityid']);
-         this.f['programname'].setValue(res[0]['programname']);
-
-         this.busystatus=false;
-         this.studentservice.clear();
-    
-        this.rectype="A";
-    const otherdet = new OtherDetail() ;
-    otherdet.category=this.category;
-    otherdet.rollnumber=this.f['applicationnumber'].value;
-    otherdet.studentname=this.f['studentname'].value;
-    otherdet.programname=this.f['programname'].value;
-    otherdet.rectype=this.rectype;
-    otherdet.semesterstartdate=this.f['semesterstartdate'].value;
-    otherdet.semesterenddate=this.f['semesterenddate'].value;
-    otherdet.latefee=this.f['latefee'].value;
-    otherdet.entityid=this.f['entityid'].value;
-    otherdet.programid=this.f['programid'].value;
-    otherdet.semester=this.f['semestercode'].value;
-    otherdet.feepending=this.f['feepending'].value;
-    otherdet.feetype=this.f['feetype'].value;
-    otherdet.defaulter='N';
-    otherdet.entityName='None';
-    otherdet.branchName='None';
-    otherdet.branchid='None';
-
-
-
-totalfee =String(parseFloat(res[0].amount));
-    let encdata=this.theAESEncryptDecryptService.encrypt(otherdet.otherdetailforcontinue());
-      totalfee=this.theAESEncryptDecryptService.encrypt(totalfee);
-
-      this.myurl=this.myurl+"?"+"totalfee="+totalfee+"&"+"Otherdetail="+encdata ;
-      
-         return;}
-         ,error: (err) =>{this.busystatus=false;
-           this.studentservice.log(err.error.message);
-           this.feeForm.reset();
-           return;}});
-
-
-
-
-      
+            // this.myurl=this.myurl+"?"+"totalfee="+this.f['feeamount'].value+"&"+"Otherdetail="+otherdet.otherdetailforcontinue() ;
+            return;
+          },
+          error: (err) => {
+            this.busystatus = false;
+            this.studentservice.log(err.error.message);
+            this.feeForm.reset();
+            return;
+          },
+        });
     }
 
+    if (this.category == 'newadm') {
+      this.subs.add = this.studentservice
+        .getAdmissionDetail(myfeeform)
+        .subscribe({
+          next: (res: any) => {
+            this.show = true;
 
+            console.log('feeform', res);
+            let totalfee: string;
+            //console.log("total fee",totalfee);
+            //this.f['feeamount'].setValue(res[0].appfee);
+            this.f['feeamount'].setValue(res[0].amount);
+            this.f['studentname'].setValue(res[0]['studentname']);
+            this.f['applicationnumber'].setValue(res[0]['applicationnumber']);
+            this.f['branchid'].setValue(res[0]['branchid']);
+            this.f['programid'].setValue(res[0]['programid']);
+            this.f['semestercode'].setValue(res[0]['semestercode']);
+            this.f['feetype'].setValue(res[0]['feetype']);
+            this.f['semesterstartdate'].setValue(res[0]['semesterstartdate']);
+            this.f['semesterenddate'].setValue(res[0]['semesterenddate']);
+            this.f['entityid'].setValue(res[0]['entityid']);
+            this.f['programname'].setValue(res[0]['programname']);
+
+            this.busystatus = false;
+            this.studentservice.clear();
+
+            this.rectype = 'A';
+            const otherdet = new OtherDetail();
+            otherdet.category = this.category;
+            otherdet.rollnumber = this.f['applicationnumber'].value;
+            otherdet.studentname = this.f['studentname'].value;
+            otherdet.programname = this.f['programname'].value;
+            otherdet.rectype = this.rectype;
+            otherdet.semesterstartdate = this.f['semesterstartdate'].value;
+            otherdet.semesterenddate = this.f['semesterenddate'].value;
+            otherdet.latefee = this.f['latefee'].value;
+            otherdet.entityid = this.f['entityid'].value;
+            otherdet.programid = this.f['programid'].value;
+            otherdet.semester = this.f['semestercode'].value;
+            otherdet.feepending = this.f['feepending'].value;
+            otherdet.feetype = this.f['feetype'].value;
+            otherdet.defaulter = 'N';
+            otherdet.entityName = 'None';
+            otherdet.branchName = 'None';
+            otherdet.branchid = 'None';
+
+            totalfee = String(parseFloat(res[0].amount));
+            let encdata = this.theAESEncryptDecryptService.encrypt(
+              otherdet.otherdetailforcontinue()
+            );
+            totalfee = this.theAESEncryptDecryptService.encrypt(totalfee);
+
+            this.myurl =
+              this.myurl +
+              '?' +
+              'totalfee=' +
+              totalfee +
+              '&' +
+              'Otherdetail=' +
+              encdata;
+
+            return;
+          },
+          error: (err) => {
+            this.busystatus = false;
+            this.studentservice.log(err.error.message);
+            this.feeForm.reset();
+            return;
+          },
+        });
+    }
   }
-
 }

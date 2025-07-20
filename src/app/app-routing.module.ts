@@ -22,7 +22,7 @@ const routes: Routes = [
   },
   // {path:'newadmissionfee/:appno',component:ApplicationfeeComponent,data:{feetype:"newadm",cat:"newadm"},pathMatch:'full'},
   {
-    path: 'newadmissionfee',
+    path: 'newadmissionfee/:appno',
     component: ApplicationfeeComponent,
     data: { feetype: 'newadm', cat: 'newadm' },
     pathMatch: 'full',

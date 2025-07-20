@@ -6,6 +6,7 @@ import { SubscriptionContainer } from '../shared/subscription-container';
 import { Location } from '@angular/common';
 import { OtherDetail } from '../other-detail';
 import { AESEncryptDecryptService } from '../services/aesencrypt-decrypt.service';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-postfee',
@@ -39,7 +40,8 @@ export class PostfeeComponent implements OnInit {
     private location: Location,
     private theAESEncryptDecryptService: AESEncryptDecryptService,
     private _Activatedroute: ActivatedRoute,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private messageservice: MessageService
   ) {}
 
   // convenience getter for easy access to form fields
@@ -102,6 +104,15 @@ export class PostfeeComponent implements OnInit {
         this.show = true;
 
         this.busystatus = false;
+        let message = res[0]['message'];
+
+        if (message == 'REC') {
+          this.messageservice.clear();
+          this.messageservice.add('Fee already received');
+          this.show = false;
+          return;
+        }
+
         this.studentservice.clear();
         this.f['feeamount'].setValue(res[0].appfee);
         this.f['studentname'].setValue(res[0]['studentname']);
@@ -119,8 +130,8 @@ export class PostfeeComponent implements OnInit {
 
         //*** Arush on 30-04-2025 */
         const today = new Date();
-      const formattedDate = today.toISOString().split('T')[0];
-      console.log(formattedDate); 
+        const formattedDate = today.toISOString().split('T')[0];
+        console.log(formattedDate);
         this.rectype = 'A';
         const otherdet = new OtherDetail();
         otherdet.category = this.category;

@@ -72,6 +72,20 @@
 
                 </div>
 
+                <div class="row" *ngIf="selectedOption==3">
+                    <div class="col-md-12 col-sm-12 col-lg-2 p-2 bd-highlight">
+                        <label>Application Number</label>
+                        <input appBlockCopyPasteDirective appAllowNumber type="text" class="form-control"
+                            formControlName="rollno" [ngClass]="{ 'is-invalid': submitted && f['appno'].errors}"
+                            [readonly]="show" placeholder="Enter Application number">
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-lg-3 p-2 bd-highlight">
+                        <datepicker (datePickerEvent)="getdate($event)"></datepicker>
+                    </div>
+                    
+
+                </div>
+
                 <div class="row" >
                     
                     <div class="col-md-4 col-sm-4 col-lg-3 p-2 m-2 bd-highlight">
