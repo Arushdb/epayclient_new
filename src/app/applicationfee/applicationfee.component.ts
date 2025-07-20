@@ -104,7 +104,7 @@ export class ApplicationfeeComponent implements OnInit {
         Validators.required,
         Validators.minLength(10),
       ]);
-      //this.submit(this.feeForm);// Arush on 06-07-2024 New Admission changes for payment.
+      this.submit(this.feeForm); // Arush on 06-07-2024 New Admission changes for payment.
     }
   }
 
