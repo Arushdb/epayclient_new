@@ -151,6 +151,7 @@ export class PostfeeComponent implements OnInit {
         otherdet.entityName = 'None';
         otherdet.branchName = 'None';
         otherdet.branchid = 'None';
+        otherdet.insuranceamount = 'None';
 
         totalfee = String(parseFloat(res[0].appfee));
 

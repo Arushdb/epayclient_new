@@ -22,10 +22,7 @@ export class StudentfeeComponent implements OnInit {
  
   feepending!: string;
   rectype:string="";
-  
-  
-
- 
+   
   feeForm: FormGroup =  Object.create(null);
   busystatus:boolean=false;
   show!: boolean;
@@ -71,18 +68,11 @@ export class StudentfeeComponent implements OnInit {
     this.submitted = false;
 
     this.subs.add = this._Activatedroute.data.subscribe(data => {
-
-      
-      
-      this.category=data['cat'];
+    this.category=data['cat'];
     });
 
     
     this.myurl = this.studentservice.url+'/makepayment';
-    
-    
-
-
 
     this.feeForm = this.formBuilder.group({
   
@@ -107,7 +97,8 @@ export class StudentfeeComponent implements OnInit {
       defaulter:[''],
       entityName:[''],
       branchName:[''],
-      branchid:[''] 
+      branchid:[''] ,
+      insurance_premium:[''] 
 
 
 
@@ -134,11 +125,17 @@ this.subs.add=this.studentservice.getStudentDetail(myfeeform).subscribe (
     this.show = true;
 
     let totalfee: string="";
+    console.log("Arush Insurance result:",res);
     
-    totalfee = String(parseFloat(res[0].amount) + parseFloat(res[0]['labfee']) + parseFloat(res[0]['latefee']));
+    totalfee = String(parseFloat(res[0].amount) 
+    + parseFloat(res[0]['labfee'])  
+    +parseFloat(res[0]['latefee'])
+    +parseFloat(res[0]['insurance_premium'] )
+  );
+    
     this.f['feeamount'].setValue(res[0].amount);
-   
-   
+    this.f['insurance_premium'].setValue(res[0].insurance_premium);
+      
     this.f['studentname'].setValue(res[0]['studentname']);
     this.f['studentname'].setValue(res[0]['studentname']);
     this.f['latefee'].setValue(res[0]['latefee']);
@@ -191,6 +188,7 @@ this.subs.add=this.studentservice.getStudentDetail(myfeeform).subscribe (
     otherdet.branchName=this.f['branchName'].value
     otherdet.entityName=this.f['entityName'].value
     otherdet.branchid=this.f['branchid'].value
+    otherdet.insuranceamount=this.f['insurance_premium'].value
 
     
    

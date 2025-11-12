@@ -27,12 +27,9 @@ export class OtherDetail {
     branchName:string="";
     branchid:string="";
     email:string="";
+    insuranceamount:any="";
     
-   
-   
-   
-    
-        
+           
     constructor(){
        
 
@@ -58,6 +55,7 @@ export class OtherDetail {
          +this.coma+this.entityName
          +this.coma+this.branchName
          +this.coma+this.branchid
+         +this.coma+this.insuranceamount
          
          
          );
