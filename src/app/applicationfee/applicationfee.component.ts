@@ -164,6 +164,7 @@ export class ApplicationfeeComponent implements OnInit {
             otherdet.entityName = 'None';
             otherdet.branchName = 'None';
             otherdet.branchid = 'None';
+            otherdet.insuranceamount = 'None';
 
             totalfee = String(parseFloat(res[0].appfee));
 
@@ -238,6 +239,7 @@ export class ApplicationfeeComponent implements OnInit {
             otherdet.entityName = 'None';
             otherdet.branchName = 'None';
             otherdet.branchid = 'None';
+            otherdet.insuranceamount = 'None';
 
             totalfee = String(parseFloat(res[0].amount));
             let encdata = this.theAESEncryptDecryptService.encrypt(

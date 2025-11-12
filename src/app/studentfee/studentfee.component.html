@@ -90,6 +90,10 @@
                             <label>Lab fee</label>
                             <input appBlockCopyPasteDirective type="text" class="form-control " readonly formControlName="labfee">
                         </div>
+                        <div *ngIf="feepending!='D'" class="col-md col-sm-4 col-lg p-2 bd-highlight">
+                            <label>Insurance Premium</label>
+                            <input appBlockCopyPasteDirective type="text" class="form-control " readonly formControlName="insurance_premium">
+                        </div>
                         <div class="col-md col-sm col-lg p-2 bd-highlight">
                             <label>Amount to be paid</label>
                             <input appBlockCopyPasteDirective type="text" class="form-control " readonly formControlName="totalfee">
