@@ -62,7 +62,7 @@
 
                         <div *ngIf="feepending=='D' || feepending=='Y'"
                             class="col-md-2 col-sm-2 col-lg-2 p-2 bd-highlight">
-                            <label>Semester</label>
+                            <label>Semester/Module</label>
                             <input appBlockCopyPasteDirective type="text" class="form-control readonly" readonly formControlName="pendingsemester">
                         </div>
 
@@ -79,7 +79,7 @@
 
                     <div class="row" *ngIf="show">
                         <div class="col-md col-sm col-lg p-2 bd-highlight" *ngIf="feepending!='D'">
-                            <label>Fee Amount</label>
+                            <label>Semester/Module Fee Amount</label>
                             <input appBlockCopyPasteDirective type="text" class="form-control " readonly formControlName="feeamount">
                         </div>
                         <div *ngIf="feepending!='D'" class="col-md col-sm col-lg p-2 bd-highlight">
@@ -95,7 +95,7 @@
                             <input appBlockCopyPasteDirective type="text" class="form-control " readonly formControlName="insurance_premium">
                         </div>
                         <div class="col-md col-sm col-lg p-2 bd-highlight">
-                            <label>Amount to be paid</label>
+                            <label>Total amount to be paid</label>
                             <input appBlockCopyPasteDirective type="text" class="form-control " readonly formControlName="totalfee">
                         </div>
                     </div>
